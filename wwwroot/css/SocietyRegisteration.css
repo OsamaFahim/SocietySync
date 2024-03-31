@@ -1,0 +1,181 @@
+﻿/* Ensure consistency with other pages */
+body {
+    overflow: hidden;
+}
+
+#TopLeft {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: darkorange;
+    height: 40px;
+    width: 300px;
+}
+
+#Top {
+    margin-left: 300px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: inline;
+    width: 100%;
+    background-color: gray;
+    height: 40px;
+}
+
+#left {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    margin-top: 40px;
+    width: 300px;
+    background-color: gray;
+}
+
+#center {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    margin-top: 40px;
+    margin-left: 300px;
+    width: 100%;
+    background-color: lightgray;
+    text-align: center;
+}
+
+/* Styles for the registration form */
+#Form {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-left: 80px;
+    margin-right: auto;
+    margin-top: 100px;
+    width: 800px;
+    border-radius: 5px;
+    height: 420px; /* Adjust height as per content */
+    background-color: lightgray;
+    border: 2px solid #808080;
+}
+
+#Bar {
+    position: relative;
+    margin-top: -20px;
+    width: 100%;
+    height: 40px;
+    background-color: gray;
+}
+
+label {
+    display: block;
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="url"],
+select,
+textarea {
+    width: 500px;
+    margin: 5px 20px;
+    padding: 6px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: white;
+    color: black;
+}
+
+textarea {
+    resize: vertical;
+}
+
+#Register_btn {
+    margin-top: 20px;
+    padding: 8px 20px;
+    font-size: 18px;
+    background-color: darkorange;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    #Register_btn:hover {
+        background-color: #FFA500; /* Adjust hover color */
+    }
+
+    #Register_btn:active {
+        background-color: #FF4500; /* Adjust active color */
+    }
+
+/* Tab bar styles */
+.tabs_bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    background-color: darkgray;
+    border: 2px solid #808080;
+}
+
+.btn {
+    background-color: darkgray;
+    border: none;
+    border-color: black;
+    color: black;
+    padding: 8px 38px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 12px;
+    font-weight: bold;
+}
+
+    .btn:focus {
+        outline: solid;
+        transition: 0.4s ease;
+    }
+
+    .btn:hover {
+        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+        background-color: gray;
+    }
+
+    .btn:active {
+        background-color: gray;
+        box-shadow: 0 5px #666;
+        transform: translateY(4px);
+    }
+
+    .btn span {
+        cursor: pointer;
+        display: inline-block;
+        position: relative;
+        transition: 0.5s;
+    }
+
+        .btn span:after {
+            content: '\00bb';
+            position: absolute;
+            opacity: 0;
+            top: 0;
+            right: -20px;
+            transition: 0.5s;
+        }
+
+    .btn:hover span {
+        padding-right: 25px;
+    }
+
+        .btn:hover span:after {
+            opacity: 1;
+            right: 0;
+        }

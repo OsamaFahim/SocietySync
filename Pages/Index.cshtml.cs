@@ -12,9 +12,25 @@ namespace SocietySync.Pages
             _logger = logger;
         }
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
+            return Page();
+        }
 
+        public IActionResult OnPostLogin()
+        {
+            // Handle login logic here
+
+            // Redirect to the login page
+            return RedirectToPage("/Login");
+        }
+
+        public IActionResult OnPostSignup()
+        {
+            // Handle signup logic here
+
+            // Redirect to the signup page
+            return RedirectToPage("/Signup");
         }
     }
 }
