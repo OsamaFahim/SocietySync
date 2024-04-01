@@ -4,7 +4,54 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="/css/Index.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div id="TopLeft">
+        <h2 style=color:white;font-weight:500;padding-left:120px;margin-top:-1px;padding-top:5px;"><strong>SMS</strong></h2>
+    </div>
+    <div id="Top">
+        <h2 style="color:white;font-weight:500;padding-left:400px;margin-top:-1px;padding-top:5px;"><strong>SocietySync</strong></h2>
+    </div>
+    <div id="left">
+        <a href="#">
+            <img src="/css/image.png" alt="SocietySync" width="300" height="400" />
+        </a>
+    </div>
+    <div id="center">
+        <div id="content">
+            <h1>Welcome to the SocietySync</h1>
+            <p style="margin-top:30px;font-style: italic; font-size: 20px; color: #333; line-height: 1.5; text-align: center;">
+                Elevate Student Leadership: <strong>Empowering Societies,</strong> Enriching Futures!
+            </p>
+
+        </div>
+       
+        <div id="box">
+            <button id="Login_btn" onclick="location.href='@Url.Page("/Login")'">Login</button>
+            <button id="SignUp_btn" onclick="location.href='@Url.Page("/SignUp")'">Signup</button>
+
+        </div>
+
+    </div>
+    <marquee behavior="scroll" truespeed="00" direction="left" style="position:absolute; bottom:0; background-color: darkorange; margin-left: 291px;" scrolldelay="60" onMouseOver="this.scrollAmount=2" onMouseOut="this.scrollAmount=3" scrollamount="2">
+        <span style="display: inline-block; padding: 10px;"><strong>Empowerment through collaboration.</strong></span>
+        <span style="display: inline-block; padding: 10px;"><strong>Inspiring leadership, fostering innovation.</strong></span>
+        <span style="display: inline-block; padding: 10px;"><strong>Efficiency meets community building.</strong></span>
+        <span style="display: inline-block; padding: 10px;"><strong>"The only limit to our realization of tomorrow will be our doubts of today." - Franklin D. Roosevelt</strong></span>
+        <span style="display: inline-block; padding: 10px;"><strong>"Believe you can and you're halfway there." - Theodore Roosevelt</strong></span>
+        <span style="display: inline-block; padding: 10px;"><strong>"Success is not final, failure is not fatal: It is the courage to continue that counts." - Winston Churchill</strong></span>
+        <span style="display: inline-block; padding: 10px;"><strong>"The secret of getting ahead is getting started." - Mark Twain</strong></span>
+        <span style="display: inline-block; padding: 10px;"><strong>"You are never too old to set another goal or to dream a new dream." - C.S. Lewis</strong></span>
+        <span style="display: inline-block; padding: 10px;"><strong>Register now and unleash your potential!</strong></span>
+    </marquee>
+
+
+
+
+</body>
+</html>

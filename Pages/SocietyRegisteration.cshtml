@@ -1,0 +1,64 @@
+﻿@page
+@model SocietySync.Pages.SocietyRegisterationModel
+@{
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Society Registration</title>
+    <link rel="stylesheet" href="/css/SignUp.css">
+    <link rel="stylesheet" href="/css/Index.css">
+    <link rel="stylesheet" href="/css/SocietyRegisteration.css">
+</head>
+<body>
+    <div id="TopLeft">
+        <h2 style="color:white;font-weight:500;padding-left:120px;margin-top:-1px;padding-top:5px;"><strong>SMS</strong></h2>
+    </div>
+    <div id="Top">
+        <h2 style="color:white;font-weight:500;padding-left:400px;margin-top:-1px;padding-top:5px;"><strong>SocietySync</strong></h2>
+    </div>
+    <div id="left">
+        <a href="#">
+            <img src="/css/image.png" alt="SocietySync" width="300" height="400" />
+        </a>
+    </div>
+
+    <div id="center">
+        <div id="Form">
+            <div id="Bar">
+                <h1><strong>Society Registration</strong></h1>
+            </div>
+            <div>
+                <label style=" position: absolute; top: 0px; left: 0px; font-weight: bold; margin-left: 30px; margin-top: 60px; font-size: 24px; color: darkorange;" for="name"><b>Name:</b></label>
+                <input style="position:absolute;top:0;left:0px;margin-top:60px;margin-left:180px;" type="text" id="name" name="name" required>
+            </div>
+            <div>
+                <label style=" position: absolute; top: 0px; left: 0px; font-weight: bold; margin-left: 30px; margin-top: 110px; font-size: 24px; color: darkorange;" for="category"><b>Category:</b></label>
+                <select style="position:absolute;top:0;left:0px;margin-top:110px;margin-left:180px;width:500px;"  id="category" name="category" required>
+                    <option value="">Select category...</option>
+                    <option value="Academic">Academic</option>
+                    <option value="Social">Social</option>
+                    <option value="Cultural">Cultural</option>
+                    <option value="Sports">Sports</option>
+                </select>
+            </div>
+            <div>
+                <label style=" position: absolute; top: 0px; left: 0px; font-weight: bold; margin-left: 30px; margin-top: 160px; font-size: 19px; color: darkorange;" for="goals"><b>Goals/Objectives:</b></label>
+                <textarea style="height:100px;position:absolute;top:0;left:0px;margin-top:160px;margin-left:180px;" id="goals" name="goals" rows="4" required></textarea>
+            </div>
+            <div>
+                <label style=" position: absolute; top: 0px; left: 0px; font-weight: bold; margin-left: 30px; margin-top: 300px; font-size: 17px; color: darkorange;" for="socialMedia"><b>Social Media Link:</b></label>
+                <input style="position:absolute;top:0;left:0px;margin-top:290px;margin-left:180px;" type="url" id="socialMedia" name="socialMedia">
+            </div>
+            <button style="position:absolute;top:0;left:0px;margin-top:350px;margin-left:350px;" type="submit" id="Register_btn">Register</button>
+        </div>
+
+        <div class="tabs_bar">
+            <button style="position:absolute;top:0px;left:5px;" class="btn" onclick="location.href='@Url.Page("/Index")'"><span>Home</span></button>
+        </div>
+    </div>
+</body>
+</html>
+

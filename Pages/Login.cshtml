@@ -1,0 +1,51 @@
+﻿@page
+@model SocietySync.Pages.LoginModel
+@{
+}
+<head>
+    <link rel="stylesheet" href="/css/Login.css" />
+    <link rel="stylesheet" href="/css/Index.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div id="TopLeft">
+        <h2 style=color:white;font-weight:500;padding-left:120px;margin-top:-1px;padding-top:5px;"><strong>SMS</strong></h2>
+    </div>
+    <div id="Top">
+        <h2 style="color:white;font-weight:500;padding-left:400px;margin-top:-1px;padding-top:5px;"><strong>SocietySync</strong></h2>
+    </div>
+    <div id="left">
+        <a href="#">
+            <img src="/css/image.png" alt="SocietySync" width="300" height="400" />
+        </a>
+    </div>
+    <div id="center">
+
+        <div id="Form">
+            <div id="Bar">
+                <h1><strong>Login</strong></h1>
+            </div>
+            <div>
+                <label id="label1" for="username"><b>Roll Number:</b></label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div>
+                <label style="position: absolute; top: 0px; left: 0px; font-weight: bold; margin-left: 30px; margin-top: 125px; font-size: 24px; color: darkorange;" for="password">Password:</label>
+                <input type="password" id="password" name="password" required style="Top:0;Left:0;position: absolute; margin-top: 120px; margin-left: 190px; width: 200px; padding: 6px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px; background-color: white; color: black;" />
+                <input type="checkbox" id="showPasswordCheckbox" style="Top:0;Left:0;position: absolute; margin-left: 190px; margin-top: 160px;">
+                <label for="showPasswordCheckbox" style="Top:0;Left:0;position: absolute; margin-left: 210px; margin-top: 160px;">Show Password</label>
+            </div>
+            <button type="submit" style="Top:0;Left:0;position: absolute; margin-left: 240px; margin-top: 205px; padding: 8px 20px; font-size: 18px; background-color: darkorange; color: white; border: none; border-radius: 5px; cursor: pointer;">Login</button>
+            <div style="Top:0;Left:0;position: absolute; margin-left: 140px; margin-top: 280px; font-size: 16px; color: darkorange;">Don't have an account? <a href="#" style="color: darkorange; text-decoration: underline;">Sign up now</a></div>
+        </div>
+        <div class="tabs_bar">
+
+            <button style="position:absolute;top:0px;left:5px;" class="btn" onclick="location.href='@Url.Page("/Index")'"><span>Home</span></button>
+
+        </div>
+
+    </div>
+
+
+</body>
+
