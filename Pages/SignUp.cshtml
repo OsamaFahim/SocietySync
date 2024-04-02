@@ -39,19 +39,32 @@
                     <label style=" position: absolute; top: 0px; left: 0px; font-weight: bold; margin-left: 30px; margin-top: 165px; font-size: 24px; color: darkorange;" for="password"><b>Password:</b></label>
                     <input type="password" id="password" name="Password_input" asp-for="Password_input" required style="position: absolute; top: 150px; left: 0; margin-top: 10px; margin-left: 190px;">
                     <span asp-validation-for="Password_input" class="text-danger" style="color: red; font-weight: bold;"></span>
-                    <input type="checkbox" id="ShowPasswordCheckBox" name="PassCheckbox_Input" style="position: absolute; top: 192px; left: 0; margin-top: 10px; margin-left: 190px;">
+                    <input type="checkbox" id="ShowPasswordCheckBox" name="PassCheckbox_Input" style="position: absolute; top: 192px; left: 0; margin-top: 10px; margin-left: 190px;" onclick="togglePasswordVisibility('password');">
                     <label style="position:absolute;top:0;left0;margin-top:200px;margin-left:-40px;" for="showPasswordCheckbox1">Show Password</label>
                 </div>
                 <div>
                     <label style=" position: absolute; top: 0px; left: 0px; font-weight: bold; margin-left: 30px; margin-top: 230px; font-size: 19px; color: darkorange;" for="confirmPassword"><b>Confirm Password:</b></label>
                     <input type="password" id="confirmPassword" name="ConfirmPassword_input" asp-for="ConfirmPassword_input" required style="position: absolute; top: 215px; left: 0; margin-top: 10px; margin-left: 190px;">
                     <span asp-validation-for="ConfirmPassword_input" class="text-danger" style="color: red; font-weight: bold;"></span>
-                    <input style="position:absolute;top:0;left0;margin-top:260px;margin-left:-60px;" type="checkbox" id="showPasswordCheckbox" style="margin-left: 10px;">
+                    <input style="position:absolute;top:0;left0;margin-top:260px;margin-left:-60px;" type="checkbox" id="showPasswordCheckbox" style="margin-left: 10px;" onclick="togglePasswordVisibility('confirmPassword');">
                     <label style="position:absolute;top:0;left0;margin-top:260px;margin-left:-40px;" for="showPasswordCheckbox">Show Password</label>
                 </div>
                 <button style="Top:0;Left:0;position: absolute; margin-left: 220px; margin-top: 290px; padding: 8px 20px; font-size: 18px; background-color: darkorange; color: white; border: none; border-radius: 5px; cursor: pointer;" type="submit" style="margin-top: 20px;" id="SignUp_btn2" onclick="#">Sign Up</button>
-                <div style="position:absolute;top:0;left0;margin-top:340px;margin-left:120px;">Already have an account? <a href="#" style="color: darkorange; text-decoration: underline;">Login now</a></div>
+                <div style="position:absolute;top:0;left0;margin-top:340px;margin-left:120px;">Already have an account? <a href="/Login" style="color: darkorange; text-decoration: underline;">Login now</a></div>
             </div>
+            
+            <!-- Show Password Check Box Script-->
+            <script>
+                function togglePasswordVisibility(targetId) {
+                    var passwordInput = document.getElementById(targetId);
+                    if (passwordInput.type === 'password') {
+                        passwordInput.type = 'text';
+                    } else {
+                        passwordInput.type = 'password';
+                    }
+                }
+            </script>
+
         </form>
 
         <div class="tabs_bar">

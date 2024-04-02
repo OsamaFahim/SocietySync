@@ -35,7 +35,7 @@ namespace SocietySync.Models
         public string Name { get; set; }
 
         [Required]
-        public string Password { get; set; }
+        public string Hashed_Password { get; set; }
 
         // Uncomment if there are relationships with other entities
         // public virtual ICollection<Society_Table> SocietyTables { get; set; }
