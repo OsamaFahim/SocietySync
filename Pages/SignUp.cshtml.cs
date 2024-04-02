@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
+using SocietySync.Models;
 
 namespace SocietySync.Pages
 {
@@ -20,9 +21,12 @@ namespace SocietySync.Pages
         [BindProperty]
         public string ConfirmPassword_input { get; set; }
 
+        [BindProperty]
+        public bool ShowPassword { get; set; }
+
         public void OnGet()
         {
-
+            ShowPassword = false;
         }
 
         private bool ValidateRollNumber(string rollNumber)
@@ -120,9 +124,10 @@ namespace SocietySync.Pages
             {
                 ModelState.AddModelError(nameof(SignUpModel.Password_input), "Passwords do not match");
                 return Page();
-            } 
+            }
 
 
+            string hashedPassword = Password_Hasher.HashPassword(Password_input);
 
             return RedirectToPage("/Index");
         }
