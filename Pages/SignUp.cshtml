@@ -9,7 +9,7 @@
 </head>
 <body>
     <div id="TopLeft">
-        <h2 style=color:white;font-weight:500;padding-left:120px;margin-top:-1px;padding-top:5px;"><strong>SMS</strong></h2>
+        <h2 style="color:white;font-weight:500;padding-left:120px;margin-top:-1px;padding-top:5px;"><strong>SMS</strong></h2>
     </div>
     <div id="Top">
         <h2 style="color:white;font-weight:500;padding-left:400px;margin-top:-1px;padding-top:5px;"><strong>SocietySync</strong></h2>
@@ -19,36 +19,40 @@
             <img src="/css/image.png" alt="SocietySync" width="300" height="400" />
         </a>
     </div>
-   
-    <div id="center">
-        <div id="Form">
-            <div id="Bar">
-                <h1><strong>Sign Up</strong></h1>
-            </div>
-            <div>
-                <label id="label1" for="username"><b>Roll Number:</b></label>
-                <input type="text" id="username" name="username" required>
-            </div>
-            <div>
-                <label style=" position: absolute; top: 0px; left: 0px; font-weight: bold; margin-left: 30px; margin-top: 120px; font-size: 24px; color: darkorange;" for="name"><b>Name:</b></label>
-                <input style="position:absolute;top:0;left0;margin-top:115px;margin-left:-60px;"type="text" id="name" name="name" required>
-            </div>
-            <div>
-                <label style=" position: absolute; top: 0px; left: 0px; font-weight: bold; margin-left: 30px; margin-top: 160px; font-size: 24px; color: darkorange;" for="password"><b>Password:</b></label>
-                <input style="position:absolute;top:0;left0;margin-top:160px;margin-left:-60px;"  type="password" id="password" name="password" required>
-                <input style="position:absolute;top:0;left0;margin-top:200px;margin-left:-60px;" type="checkbox" id="showPasswordCheckbox" style="margin-left: 10px;">
-                <label style="position:absolute;top:0;left0;margin-top:200px;margin-left:-40px;" for="showPasswordCheckbox">Show Password</label>
-            </div>
-            <div>
-                <label style=" position: absolute; top: 0px; left: 0px; font-weight: bold; margin-left: 30px; margin-top: 230px; font-size: 19px; color: darkorange;" for="confirmPassword"><b>Confirm Password:</b></label>
-                <input style="position:absolute;top:0;left0;margin-top:220px;margin-left:-60px;" type="password" id="confirmPassword" name="confirmPassword" required>
-                <input style="position:absolute;top:0;left0;margin-top:260px;margin-left:-60px;" type="checkbox" id="showPasswordCheckbox" style="margin-left: 10px;">
-                <label style="position:absolute;top:0;left0;margin-top:260px;margin-left:-40px;" for="showPasswordCheckbox">Show Password</label>
-            </div>
-            <button style="Top:0;Left:0;position: absolute; margin-left: 220px; margin-top: 290px; padding: 8px 20px; font-size: 18px; background-color: darkorange; color: white; border: none; border-radius: 5px; cursor: pointer;" type="submit" style="margin-top: 20px;" id="SignUp_btn2" onclick="#">Sign Up</button>
-            <div style="position:absolute;top:0;left0;margin-top:340px;margin-left:120px;">Already have an account? <a href="#" style="color: darkorange; text-decoration: underline;">Login now</a></div>
-        </div>
 
+    <div id="center">
+        <form method="post">
+            <div id="Form">
+                <div id="Bar">
+                    <h1><strong>Sign Up</strong></h1>
+                </div>
+                <div>
+                    <label id="label1" for="username"><b>Roll Number:</b></label>
+                    <input type="text" id="rollNumber" name="RollNumber_input" asp-for="RollNumber_input" required style="position: absolute; top: 60px; left: 0; margin-top: 10px; margin-left: 190px;">
+                    <span asp-validation-for="RollNumber_input" class="text-danger" style="color: red; font-weight: bold;"></span>
+                </div>
+                <div>
+                    <label style=" position: absolute; top: 0px; left: 0px; font-weight: bold; margin-left: 30px; margin-top: 120px; font-size: 24px; color: darkorange;" for="name"><b>Name:</b></label>
+                    <input style="position:absolute;top:0;left0;margin-top:115px;margin-left:-60px;" type="text" id="name" name="Name_input" asp-for="Name_input" required>
+                </div>
+                <div>
+                    <label style=" position: absolute; top: 0px; left: 0px; font-weight: bold; margin-left: 30px; margin-top: 165px; font-size: 24px; color: darkorange;" for="password"><b>Password:</b></label>
+                    <input type="password" id="password" name="Password_input" asp-for="Password_input" required style="position: absolute; top: 150px; left: 0; margin-top: 10px; margin-left: 190px;">
+                    <span asp-validation-for="Password_input" class="text-danger" style="color: red; font-weight: bold;"></span>
+                    <input type="checkbox" id="ShowPasswordCheckBox" name="PassCheckbox_Input" style="position: absolute; top: 192px; left: 0; margin-top: 10px; margin-left: 190px;">
+                    <label style="position:absolute;top:0;left0;margin-top:200px;margin-left:-40px;" for="showPasswordCheckbox1">Show Password</label>
+                </div>
+                <div>
+                    <label style=" position: absolute; top: 0px; left: 0px; font-weight: bold; margin-left: 30px; margin-top: 230px; font-size: 19px; color: darkorange;" for="confirmPassword"><b>Confirm Password:</b></label>
+                    <input type="password" id="confirmPassword" name="ConfirmPassword_input" asp-for="ConfirmPassword_input" required style="position: absolute; top: 215px; left: 0; margin-top: 10px; margin-left: 190px;">
+                    <span asp-validation-for="ConfirmPassword_input" class="text-danger" style="color: red; font-weight: bold;"></span>
+                    <input style="position:absolute;top:0;left0;margin-top:260px;margin-left:-60px;" type="checkbox" id="showPasswordCheckbox" style="margin-left: 10px;">
+                    <label style="position:absolute;top:0;left0;margin-top:260px;margin-left:-40px;" for="showPasswordCheckbox">Show Password</label>
+                </div>
+                <button style="Top:0;Left:0;position: absolute; margin-left: 220px; margin-top: 290px; padding: 8px 20px; font-size: 18px; background-color: darkorange; color: white; border: none; border-radius: 5px; cursor: pointer;" type="submit" style="margin-top: 20px;" id="SignUp_btn2" onclick="#">Sign Up</button>
+                <div style="position:absolute;top:0;left0;margin-top:340px;margin-left:120px;">Already have an account? <a href="#" style="color: darkorange; text-decoration: underline;">Login now</a></div>
+            </div>
+        </form>
 
         <div class="tabs_bar">
 
@@ -60,4 +64,3 @@
 
 
 </body>
-
