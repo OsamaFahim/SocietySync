@@ -1,0 +1,102 @@
+﻿@page
+@model SocietySync.Pages.HomeModel
+@{
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="/css/Index.css" />
+    <link rel="stylesheet" href="/css/Home.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div id="TopLeft">
+        <h2 style="color: white; font-weight: 500; padding-left: 120px; margin-top: -1px; padding-top: 5px;"><strong>SMS</strong></h2>
+    </div>
+    <div id="Top">
+        <h2 style="color: white; font-weight: 500; padding-left: 400px; margin-top: -1px; padding-top: 5px;"><strong>SocietySync</strong></h2>
+    </div>
+    <div id="left">
+        <a href="#">
+            <img src="/css/image.png" alt="SocietySync" width="300" height="400" />
+        </a>
+    </div>
+    <div id="center">
+        <div class="tabs_bar">
+            <button style="position: absolute; top: 0px; left: 5px;" class="btn" onclick="#"><span>Home</span></button>
+            <button style="position: absolute; top: 0px; left: 150px;" class="btn" onclick="#"><span>Events</span></button>
+            <div id="notifications">
+                <!-- Dropdown notifications tab -->
+                <div style="position: absolute; top: 4px; left: 660px;" class="dropdown">
+                    <button class="dropbtn">Notifications</button>
+                    <div style="background-color: gray; border-radius: 5px; margin-left: 5px;" class="dropdown-content">
+                        <a id="notification_data" href="#">Notification 1</a>
+                        <a href="#">Notification 2</a>
+                        <a href="#">Notification 3</a>
+                    </div>
+                </div>
+            </div>
+            <button style="position: absolute; top: 0px; left: 830px;" class="btn" onclick="#"><span>Log Out</span></button>
+        </div>
+        <div id="content">
+            <div class="event" style="width: 700px; height: 200px; top: 220px; left: 782px; transform: translate(-50%, -50%); position: fixed; border: 2px solid;">
+                <div style="position: absolute; width: 100%; height: 40px; background-color: #333333; top: 0;">
+                    <h3 style="color: white; font-weight: bold; text-align: center; margin-top: 7px;">Event</h3>
+                </div>
+                <div style="margin-top: 30px; padding: 20px;">
+                    <textarea id="announcementText1" style="width: calc(100% - 40px); height: 70px; margin-bottom: 10px; padding: 10px; border-radius: 5px; border: 1px solid #ccc;" readonly></textarea>
+                    <div style="text-align: center;">
+                        <button class="view-btn" onclick="openPopup('popup1')" style="background-color: #333333; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">View</button>
+                    </div>
+                </div>
+            </div>
+            <div class="event" style="width: 700px; height: 200px; top: 450px; left: 782px; transform: translate(-50%, -50%); position: fixed;border: 2px solid;">
+                <div style="position: absolute; width: 100%; height: 40px; background-color: #333333; top: 0;">
+                    <h3 style="color: white; font-weight: bold; text-align: center; margin-top: 7px;">Event</h3>
+                </div>
+                <div style="margin-top: 30px; padding: 20px;">
+                    <textarea id="announcementText2" style="width: calc(100% - 40px); height: 70px; margin-bottom: 10px; padding: 10px; border-radius: 5px; border: 1px solid #ccc;" readonly></textarea>
+                    <div style="text-align: center;">
+                        <button class="view-btn" onclick="openPopup('popup2')" style=" background-color: #333333; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">View</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="popup1" class="popup-event" style="background-color:lightgray;position:absolute;top:300px;left:400px;" >
+            <div class="popup-content">
+                <h3>Event</h3>
+                <span class="close" onclick="closePopup('popup1')">&times;</span>
+                <textarea id="eventText1" placeholder="Event details" style="margin-top: 10px;" readonly></textarea>
+                <div style="text-align: center;">
+                    <button style="background-color: #333333; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">Apply</button>
+                </div>
+            </div>
+        </div>
+        <div id="popup2" class="popup-event" style="background-color:lightgray;position:absolute;top:300px;left:400px;">
+            <div class="popup-content">
+                <h3>Event</h3>
+                <span class="close" onclick="closePopup('popup2')">&times;</span>
+                <textarea id="eventText2" placeholder="Event details" style="margin-top: 10px;" readonly></textarea>
+                <div style="text-align: center;">
+                    <button style="background-color: #333333; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">Apply</button>
+                </div>
+            </div>
+        </div>
+        <button style="position: absolute; bottom: 60px; left: 400px;" class="scroll-btn">Up</button>
+        <button style="position: absolute; bottom: 60px; left: 470px;" class="scroll-btn">Down</button>
+
+        <script>
+            // Function to show popup
+            function openPopup(id) {
+                document.getElementById(id).style.display = "block";
+            }
+
+            // Function to hide popup
+            function closePopup(id) {
+                document.getElementById(id).style.display = "none";
+            }
+        </script>
+    </div>
+</body>
+</html>

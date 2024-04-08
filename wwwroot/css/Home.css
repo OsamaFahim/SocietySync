@@ -1,0 +1,354 @@
+﻿body {
+    overflow: hidden;
+}
+
+.timeline {
+    list-style-type: none;
+    padding: 0;
+    position: relative;
+    margin-top: 50px; /* Adjust as needed */
+}
+
+    .timeline:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background-color: #ccc;
+        left: 50%;
+        margin-left: -1px;
+    }
+
+.timeline-item {
+    margin-bottom: 20px; /* Adjust as needed */
+    position: relative;
+}
+
+    .timeline-item:before,
+    .timeline-item:after {
+        content: '';
+        display: table;
+    }
+
+    .timeline-item:after {
+        clear: both;
+    }
+
+.timeline-item-content {
+    margin-top: 5px;
+    background-color: #f0f0f0; /* Background color of each timeline item */
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    position: relative;
+}
+
+    .timeline-item-content h3 {
+        margin-top: 0;
+    }
+
+    .timeline-item-content p {
+        margin-bottom: 0;
+    }
+
+.timeline-item-date {
+    position: absolute;
+    top: -15px; /* Adjust position of the date */
+    left: 50%;
+    background-color: #fff;
+    padding: 0 10px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    white-space: nowrap;
+}
+
+/* Define styles for left panel */
+#left {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    margin-top: 40px;
+    width: 300px;
+    background-color: gray;
+}
+
+.society-menu {
+    margin-top: 60px;
+    margin-left: 40px;
+}
+
+.menu-btn {
+    display: block;
+    width: 220px;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: darkgray;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    .menu-btn:hover {
+        background-color: #555555;
+    }
+
+/* Define styles for center content */
+#center {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    margin-top: 40px;
+    margin-left: 300px;
+    width: calc(100% - 300px);
+    background-color: lightgray;
+    text-align: center;
+}
+
+
+
+textarea {
+    padding: 6px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: white;
+    color: black;
+    resize: vertical;
+}
+
+/* Define styles for tabs bar */
+.tabs_bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    background-color: darkgray;
+    border: 2px solid #808080;
+}
+
+.btn {
+    background-color: darkgray;
+    border: none;
+    border-color: black;
+    color: black;
+    padding: 8px 38px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 12px;
+    font-weight: bold;
+}
+
+    .btn:focus {
+        outline: solid;
+        transition: 0.4s ease;
+    }
+
+    .btn:hover {
+        box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+        background-color: gray;
+    }
+
+    .btn:active {
+        background-color: gray;
+        box-shadow: 0 5px #666;
+        transform: translateY(4px);
+    }
+
+    .btn span {
+        cursor: pointer;
+        display: inline-block;
+        position: relative;
+        transition: 0.5s;
+    }
+
+        .btn span:after {
+            content: '\00bb';
+            position: absolute;
+            opacity: 0;
+            top: 0;
+            right: -20px;
+            transition: 0.5s;
+        }
+
+    .btn:hover span {
+        padding-right: 25px;
+    }
+
+        .btn:hover span:after {
+            opacity: 1;
+            right: 0;
+        }
+
+/* Dropdown button */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    margin-right: 20px;
+    background-color: darkgray;
+}
+
+/* Dropdown content */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: darkgray;
+    min-width: 160px;
+    box-shadow: inherit;
+    z-index: 1;
+}
+
+    .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+
+        .dropdown-content a:hover {
+            background-color: darkgray;
+        }
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropbtn {
+    background-color: darkgray;
+    color: black;
+    padding: 8px 38px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 12px;
+    font-weight: bold;
+}
+
+    .dropbtn:hover {
+        background-color: gray;
+    }
+
+
+
+.popup {
+    display: none;
+    position: absolute;
+    left: 1030px;
+    top: 220px;
+    width: 220px;
+    height: 350px;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 9999;
+    border-radius: 10px;
+}
+
+.popup-content {
+    height: 100%;
+    background-color: gray;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+    }
+
+.popup-event {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #f9f9f9;
+    border: 2px solid #333333;
+    border-radius: 5px;
+    padding: 20px;
+    z-index: 1000;
+}
+
+.popup-content {
+    width: 500px;
+    height: 400px;
+}
+
+    .popup-content h3 {
+        color: white;
+        font-weight: bold;
+        text-align: center;
+        margin-top: 7px;
+        background-color: #333333;
+        padding: 10px 0;
+    }
+
+    .popup-content textarea {
+        width: calc(100% - 40px);
+        height: 150px;
+        margin-bottom: 10px;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+
+    .popup-content button {
+        background-color: #333333;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+
+        .popup-content button:hover {
+            background-color: #555555;
+        }
+
+.close {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    font-size: 20px;
+    cursor: pointer;
+    background-color: darkred;
+    color: white;
+    padding: 1px 8px ;
+    border-radius:50%;
+}
+
+/* Button styles */
+.scroll-btn {
+    background-color: #333333;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+    .scroll-btn:hover {
+        background-color: #555555;
+    }

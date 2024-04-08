@@ -1,0 +1,92 @@
+﻿@page
+@model SocietySync.Pages.ApplyMembershipModel
+@{
+}
+<html>
+<head>
+    <link rel="stylesheet" href="/css/Index.css" />
+    <link rel="stylesheet" href="/css/ApplyMembership.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div id="TopLeft">
+        <h2 style="color:white;font-weight:500;padding-left:120px;margin-top:-1px;padding-top:5px;"><strong>SMS</strong></h2>
+    </div>
+    <div id="Top">
+        <h2 style="color:white;font-weight:500;padding-left:400px;margin-top:-1px;padding-top:5px;"><strong>SocietySync</strong></h2>
+    </div>
+    <div id="left">
+        <div class="society-menu">
+            <button class="menu-btn">All Socities</button>
+            <button class="menu-btn">Current Socities</button>
+            <button class="menu-btn" id="registerBtn">Register</button>
+        </div>
+    </div>
+
+    <div id="center">
+        <div class="tabs_bar">
+            <button style="position:absolute;top:0px;left:5px;" class="btn" onclick="#"><span>Home</span></button>
+            <button style="position:absolute;top:0px;left:150px;" class="btn" onclick="#"><span>Events</span></button>
+            <div id="notifications">
+                <!-- Dropdown notifications tab -->
+                <div style="position:absolute;top:4px;left:660px;" class="dropdown">
+                    <button class="dropbtn">Notifications</button>
+                    <div style="background-color:gray;border-radius:5px;margin-left:5px;" class="dropdown-content">
+                        <a id="notification_data" href="#">Notification 1</a>
+                        <a href="#">Notification 2</a>
+                        <a href="#">Notification 3</a>
+                    </div>
+                </div>
+            </div>
+            <button style="position:absolute;top:0px;left:830px;" class="btn" onclick="#"><span>Log Out</span></button>
+        </div>
+        <div id="content" style="position:absolute;top:100px;left:100px;width:500px; height:400px;border-style:solid; border-color:black;border-width:2px;border-radius:5px;">
+            <textarea style="width:485px;height:385px;margin-top:5px;margin-left:-0px;" id="society-data" readonly></textarea>
+        </div>
+    </div>
+
+    <div id="registerPopup" class="popup">
+        <div class="popup-content">
+            <div style="width:100%;height:40px;background-color:#333333;position:absolute;top:0;">
+                <h3 style="color:white;font-weight:bold;text-align:center;margin-top:7px;">Register a Society</h3>
+            </div>
+            <span class="close" onclick="closePopup('registerPopup')" style="position: absolute; top: 0px; right: 0px; font-size: 20px; cursor: pointer; background-color: darkred; color: white; padding: 8px 7px; ">&times;</span>
+            <div style="margin-top: 50px; padding: 20px;">
+                <label for="societyList" style="font-weight: bold;">Select Society:</label><br>
+                <select id="societyList" name="societyList" style="width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px;">
+                    <!-- Populate with society options -->
+                    <option value="society1">Society 1</option>
+                    <option value="society2">Society 2</option>
+                    <option value="society3">Society 3</option>
+                </select>
+
+                <button id="applyMembershipBtn" style="background-color: #333333; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">Apply Membership</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to show popup
+        function openPopup(id) {
+            document.getElementById(id).style.display = "block";
+        }
+
+        // Function to hide popup
+        function closePopup(id) {
+            document.getElementById(id).style.display = "none";
+        }
+
+        // Event listener for Register button
+        document.getElementById("registerBtn").addEventListener("click", function () {
+            openPopup("registerPopup");
+        });
+
+        // Event listener for Apply Membership button
+        document.getElementById("applyMembershipBtn").addEventListener("click", function () {
+            // Code to handle applying membership
+            closePopup("registerPopup");
+        });
+    </script>
+</body>
+
+</html>
