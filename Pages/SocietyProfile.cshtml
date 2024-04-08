@@ -10,6 +10,7 @@
     <title>Society Profile</title>
     <link rel="stylesheet" href="/css/SocietyProfile.css">
     <link rel="stylesheet" href="/css/Index.css">
+    <link rel="stylesheet" href="/css/AdminProfile.css">
 </head>
 <body>
     <div id="TopLeft">
@@ -24,8 +25,11 @@
             <button class="menu-btn">View Members</button>
             <button class="menu-btn">View Events</button>
             <button class="menu-btn">View Funds</button>
+            <button class="menu-btn">View Requests</button>
             <button class="menu-btn" id="makeAnnouncementBtn">Make Announcement</button>
             <button class="menu-btn" id="manageMembersBtn">Manage Members</button>
+            <button class="menu-btn" id="manageMembershipRequestsBtn">Manage Requests</button>
+            <button class="menu-btn" id="organizeEventBtn">Organize Event</button>
             <button class="menu-btn">View History</button>
         </div>
     </div>
@@ -34,6 +38,17 @@
         <div class="tabs_bar">
             <button style="position:absolute;top:0px;left:5px;" class="btn" onclick="#"><span>Home</span></button>
             <button style="position:absolute;top:0px;left:150px;" class="btn" onclick="#"><span>Events</span></button>
+            <div id="notifications">
+
+                <div style="position:absolute;top:4px;left:660px;" class="dropdown">
+                    <button class="dropbtn">Notifications</button>
+                    <div style="background-color:gray;border-radius:5px;margin-left:5px;" class="dropdown-content">
+                        <a id="notification_data" href="#">Notification 1</a>
+                        <a href="#">Notification 2</a>
+                        <a href="#">Notification 3</a>
+                    </div>
+                </div>
+            </div>
             <button style="position:absolute;top:0px;left:830px;" class="btn" onclick="#"><span>Log Out</span></button>
         </div>
         <div id="content" style="position:absolute;top:100px;left:100px;width:500px; height:400px;border-style:solid; border-color:black;border-width:2px;border-radius:5px;">
@@ -99,10 +114,97 @@
         </div>
     </div>
 
+    <div id="manageMembershipRequestsPopup" class="popup" style="display: none;">
+        <div class="popup-content">
+            <div style="width:100%;height:40px;background-color:#333333;position:absolute;top:0;">
+                <h3 style="color:white;font-weight:bold;text-align:center;margin-top:7px;">Manage Requests</h3>
+            </div>
+            <span class="close" id="closeManageMembershipRequestsPopup" style="position: absolute; top: 0px; right: 0px; font-size: 20px; cursor: pointer; background-color: darkred; color: white; padding: 8px 7px; ">&times;</span>
+            <div style="margin-top: 50px; padding: 20px;">
+                <label for="pendingRequests" style="font-weight: bold;">Pending Requests:</label><br>
+                <select id="pendingRequests" name="pendingRequests" style="width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px;">
+                    <option value="request1">Request 1</option>
+                    <option value="request2">Request 2</option>
 
+                </select>
+                <button id="viewRequestDetailsBtn" style="background-color: #333333; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;position:absolute;top:140px;left:40px;">View Detailed Info</button>
+                <button id="acceptRequestBtn" style="background-color: #333333; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;position:absolute;top:200px;left:25px">Accept</button>
+                <button id="rejectRequestBtn" style="background-color: #333333; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;margin-top:68px;margin-left:100px;">Reject</button>
+            </div>
+        </div>
+    </div>
 
+    <div id="organizeEventPopup" class="popup-announcement" style="display: none;">
+        <div class="popup-content" style="width: 500px; height: 400px; top: 392px; left: 752px; transform: translate(-50%, -50%); position: fixed;">
+            <div style="position:absolute;width:100%;height:40px;background-color:#333333;top:0;">
+                <h3 style="color:white;font-weight:bold;text-align:center;margin-top:7px;">Organize Event</h3>
+            </div>
+            <span class="close" id="closeOrganizeEventPopup" style="position: absolute; top: 0px; right: 0px; font-size: 20px; cursor: pointer; background-color: darkred; color: white; padding: 8px 7px; ">&times;</span>
+            <div style="margin-top: 50px; padding: 20px;">
 
+                <label for="eventName" style="font-weight: bold;">Event Name:</label><br>
+                <input type="text" id="eventName" name="eventName" style="width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px;"><br>
+
+                <label for="eventType" style="font-weight: bold;">Event Type:</label>
+                <label for="eventDate" style="font-weight: bold; margin-left: 20px;">Event Date:</label><br>
+                <select id="eventType" name="eventType" style="width: 45%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; display: inline-block;">
+                    <option value="social">Social</option>
+                    <option value="private">Private</option>
+                    <option value="poll">Poll</option>
+
+                </select>
+                <input type="date" id="eventDate" name="eventDate" style="width: 45%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; display: inline-block;"><br>
+
+                <label for="eventDescription" style="font-weight: bold;">Event Description:</label><br>
+                <textarea id="eventDescription" style="width: calc(100% - 40px); height: 100px; margin-bottom: 10px; padding: 10px; border-radius: 5px; border: 1px solid #ccc;"></textarea>
+
+                <div style="text-align: center;">
+                    <button id="submitEventBtn" style="background-color: #333333; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">Organize Event</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script>
+        // organize event
+        var organizeEventBtn = document.getElementById("organizeEventBtn");
+        var organizeEventPopup = document.getElementById("organizeEventPopup");
+        var closeOrganizeEventPopup = document.getElementById("closeOrganizeEventPopup");
+
+        organizeEventBtn.onclick = function () {
+            organizeEventPopup.style.display = "block";
+        }
+
+        closeOrganizeEventPopup.onclick = function () {
+            organizeEventPopup.style.display = "none";
+        }
+
+        // Close popup when clicking outside
+        window.onclick = function (event) {
+            if (event.target == organizeEventPopup) {
+                organizeEventPopup.style.display = "none";
+            }
+            // Add similar conditions for other popups if needed
+        }
+
+        // Optionally, add functionality to handle event organization
+        var submitEventBtn = document.getElementById("submitEventBtn");
+
+        submitEventBtn.onclick = function () {
+            // Implement event organization functionality
+            alert("Event organized.");
+        }
+        // Manage Membership Requests
+        var manageMembershipRequestsBtn = document.getElementById("manageMembershipRequestsBtn");
+        var manageMembershipRequestsPopup = document.getElementById("manageMembershipRequestsPopup");
+        var closeManageMembershipRequestsPopup = document.getElementById("closeManageMembershipRequestsPopup");
+
+        manageMembershipRequestsBtn.onclick = function () {
+            manageMembershipRequestsPopup.style.display = "block";
+        }
+
+        closeManageMembershipRequestsPopup.onclick = function () {
+            manageMembershipRequestsPopup.style.display = "none";
+        }
         // Manage Members
         var manageMembersBtn = document.getElementById("manageMembersBtn");
         var manageMembersPopup = document.getElementById("manageMembersPopup");
@@ -114,12 +216,6 @@
 
         closeManageMembersPopup.onclick = function () {
             manageMembersPopup.style.display = "none";
-        }
-
-        window.onclick = function (event) {
-            if (event.target == manageMembersPopup) {
-                manageMembersPopup.style.display = "none";
-            }
         }
 
         // Make Announcement
@@ -135,28 +231,45 @@
             makeAnnouncementPopup.style.display = "none";
         }
 
+        // Manage Membership Requests
+        var manageMembershipRequestsBtn = document.getElementById("manageMembershipRequestsBtn");
+        var manageMembershipRequestsPopup = document.getElementById("manageMembershipRequestsPopup");
+        var closeManageMembershipRequestsPopup = document.getElementById("closeManageMembershipRequestsPopup");
+
+        manageMembershipRequestsBtn.onclick = function () {
+            manageMembershipRequestsPopup.style.display = "block";
+        }
+
+        closeManageMembershipRequestsPopup.onclick = function () {
+            manageMembershipRequestsPopup.style.display = "none";
+        }
+
+        // Close popups when clicking outside
         window.onclick = function (event) {
+            if (event.target == manageMembersPopup) {
+                manageMembersPopup.style.display = "none";
+            }
             if (event.target == makeAnnouncementPopup) {
                 makeAnnouncementPopup.style.display = "none";
             }
+            if (event.target == manageMembershipRequestsPopup) {
+                manageMembershipRequestsPopup.style.display = "none";
+            }
         }
 
-        function getCurrentTimestamp() {
-            var now = new Date();
-            var timestamp = now.toLocaleString(); // Customize timestamp format as needed
-            return timestamp;
+        // Accept and Reject Request functionality
+        var acceptRequestBtn = document.getElementById("acceptRequestBtn");
+        var rejectRequestBtn = document.getElementById("rejectRequestBtn");
+
+        acceptRequestBtn.onclick = function () {
+            // Implement accept functionality
+            alert("Request accepted.");
         }
 
-        // Event listener for submit button
-        document.getElementById("submitAnnouncementBtn").addEventListener("click", function () {
-            var announcementText = document.getElementById("announcementText").value;
-            var timestamp = getCurrentTimestamp();
-            var announcementWithTimestamp = announcementText + "\n\n" + "Timestamp: " + timestamp;
-
-            // Display or store the announcement with timestamp as needed
-            console.log(announcementWithTimestamp); // For demonstration, print to console
-        });
+        rejectRequestBtn.onclick = function () {
+            // Implement reject functionality
+            alert("Request rejected.");
+        }
     </script>
-
 </body>
 </html>
