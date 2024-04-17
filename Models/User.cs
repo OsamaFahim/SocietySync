@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace SocietySync.Models
 {
-    public class User_Model : DbContext
+/*    public class User_Model : DbContext
     {
         public User_Model() : base("name=Model")
         {
@@ -18,13 +18,13 @@ namespace SocietySync.Models
         // Uncomment if Society_Table is an entity with a relationship to User
         // public DbSet<Society_Table> SocietyTables { get; set; }
 
-      /*  public void DeleteAllUsers()
+      *//*  public void DeleteAllUsers()
         {
             var allUsers = Users.ToList();
             Users.RemoveRange(allUsers);
             SaveChanges();
-        }*/
-    }
+        }*//*
+    }*/
 
     public class User
     {

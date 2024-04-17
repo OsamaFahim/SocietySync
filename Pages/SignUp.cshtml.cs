@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 using SocietySync.Models;
+using SocietySync.DBcontext;
 
 namespace SocietySync.Pages
 {
@@ -106,7 +107,7 @@ namespace SocietySync.Pages
             return hasUppercase && hasLowercase && hasSpecialChar;
         }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPost()
         {
             if (!ValidateRollNumber(RollNumber_input))
             {
@@ -116,7 +117,7 @@ namespace SocietySync.Pages
             
             if(!ValidatePassword(Password_input))
             {
-                ModelState.AddModelError(nameof(SignUpModel.Password_input), "Passwords must contain 8 charachters");
+                ModelState.AddModelError(nameof(SignUpModel.Password_input), "Passwords must contain atleast 8 characters including atleast one special character and a number");
                 return Page();
             }
             
@@ -127,9 +128,30 @@ namespace SocietySync.Pages
             }
 
 
+            UserSession userSession = UserSession.Instance;
+            userSession.SetLoggedInUser(RollNumber_input);
+
+            DBcontext.SocietySyncContext context = userSession.GetSocietySyncContext(); //Gets Contexts everytime when needed
+            if (context.Users.Any(u => u.RollNum == RollNumber_input))
+            {
+                ModelState.AddModelError(nameof(SignUpModel.RollNumber_input), "Roll Number Already Exsists");
+                return Page();
+            }
+
             string hashedPassword = Password_Hasher.HashPassword(Password_input);
 
-            return RedirectToPage("/Index");
+            var newUser = new User
+            {
+                RollNum = RollNumber_input,
+                Name = Name_input,
+                Hashed_Password = hashedPassword
+            };
+
+            context.Users.Add(newUser);
+
+            await context.SaveChangesAsync();
+
+            return RedirectToPage("/Login");
         }
     }
 }
