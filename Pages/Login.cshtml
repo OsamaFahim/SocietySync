@@ -20,32 +20,43 @@
         </a>
     </div>
     <div id="center">
+        <form method="post">
+            <div id="Form">
+                <div id="Bar">
+                    <h1><strong>Login</strong></h1>
+                </div>
+                <div>
+                    <label id="label1" for="username"><b>Roll Number:</b></label>
+                    <input type="text" id="username" name="Username_input" asp-for="Username_input" required>
+                    <span asp-validation-for="Username_input" class="text-danger" style="color: red; font-weight: bold;"></span>
+                </div>
+                <div>
+                    <label style="position: absolute; top: 0px; left: 0px; font-weight: bold; margin-left: 30px; margin-top: 125px; font-size: 24px; color: darkorange;" for="password">Password:</label>
+                    <input type="password" id="password" name="Password_input" asp-for="Password_input" required style="Top:0;Left:0;position: absolute; margin-top: 120px; margin-left: 190px; width: 200px; padding: 6px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px; background-color: white; color: black;" />
+                    <span asp-validation-for="Password_input" class="text-danger" style="color: red; font-weight: bold;"></span>
+                    <input type="checkbox" id="ShowPassword" style="Top:0;Left:0;position: absolute; margin-left: 190px; margin-top: 160px;" onclick="togglePasswordVisibility('password')">
+                    <label for="showPasswordCheckbox" style="Top:0;Left:0;position: absolute; margin-left: 210px; margin-top: 160px;">Show Password</label>
+                </div>
+                <button type="submit" style="Top:0;Left:0;position: absolute; margin-left: 240px; margin-top: 205px; padding: 8px 20px; font-size: 18px; background-color: darkorange; color: white; border: none; border-radius: 5px; cursor: pointer;">Login</button>
+                <div style="Top:0;Left:0;position: absolute; margin-left: 140px; margin-top: 280px; font-size: 16px; color: darkorange;">Don't have an account? <a href="/SignUp" style="color: darkorange; text-decoration: underline;">Sign up now</a></div>
+            </div>
+            <div class="tabs_bar">
 
-        <div id="Form">
-            <div id="Bar">
-                <h1><strong>Login</strong></h1>
+                <button style="position:absolute;top:0px;left:5px;" class="btn" onclick="location.href='@Url.Page("/Index")'"><span>Home</span></button>
+
             </div>
-            <div>
-                <label id="label1" for="username"><b>Roll Number:</b></label>
-                <input type="text" id="username" name="username" required>
-            </div>
-            <div>
-                <label style="position: absolute; top: 0px; left: 0px; font-weight: bold; margin-left: 30px; margin-top: 125px; font-size: 24px; color: darkorange;" for="password">Password:</label>
-                <input type="password" id="password" name="password" required style="Top:0;Left:0;position: absolute; margin-top: 120px; margin-left: 190px; width: 200px; padding: 6px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px; background-color: white; color: black;" />
-                <input type="checkbox" id="showPasswordCheckbox" style="Top:0;Left:0;position: absolute; margin-left: 190px; margin-top: 160px;">
-                <label for="showPasswordCheckbox" style="Top:0;Left:0;position: absolute; margin-left: 210px; margin-top: 160px;">Show Password</label>
-            </div>
-            <button type="submit" style="Top:0;Left:0;position: absolute; margin-left: 240px; margin-top: 205px; padding: 8px 20px; font-size: 18px; background-color: darkorange; color: white; border: none; border-radius: 5px; cursor: pointer;">Login</button>
-            <div style="Top:0;Left:0;position: absolute; margin-left: 140px; margin-top: 280px; font-size: 16px; color: darkorange;">Don't have an account? <a href="/SignUp" style="color: darkorange; text-decoration: underline;">Sign up now</a></div>
+                <!-- Show Password Check Box Script-->
+                <script>
+                    function togglePasswordVisibility(targetId) {
+                        var passwordInput = document.getElementById(targetId);
+                        if (passwordInput.type === 'password') {
+                            passwordInput.type = 'text';
+                        } else {
+                            passwordInput.type = 'password';
+                        }
+                    }
+                </script>
+            </form>
         </div>
-        <div class="tabs_bar">
-
-            <button style="position:absolute;top:0px;left:5px;" class="btn" onclick="location.href='@Url.Page("/Index")'"><span>Home</span></button>
-
-        </div>
-
-    </div>
-
-
 </body>
 

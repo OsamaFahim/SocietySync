@@ -9,8 +9,7 @@ namespace SocietySync.DBcontext
     {
         public SocietySyncContext(DbContextOptions<SocietySyncContext> options)
             : base(options)
-        {
-        }
+        {}
 
         // DbSets for each model
         public DbSet<User> Users { get; set; }
