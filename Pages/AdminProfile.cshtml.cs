@@ -15,6 +15,7 @@ namespace SocietySync.Pages
         {
             var context = UserSession.Instance.GetSocietySyncContext();
 
+
             UserCount = context.Users.Count();
             Pending_Societies = context.Societies.Where(s => !s.Status).ToList();
         }
