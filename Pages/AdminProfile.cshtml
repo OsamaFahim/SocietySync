@@ -40,10 +40,10 @@
         </div>
         <div id="panel">
             <span class="user-count-label">Total User Count:</span>
-            <input type="text" class="user-count-field" value="100" readonly>
+            <input type="text" class="user-count-field" name="user_count" value="@Model.UserCount" readonly>
         </div>
         <div id="content" style="position:absolute;top:100px;left:100px;width:500px; height:400px;border-style:solid; border-color:black;border-width:2px;border-radius:5px;">
-            <textarea style="width:485px;height:385px;margin-top:-0px;margin-left:0px;" id="society-data" readonly></textarea>
+            <textarea style="width:485px;height:385px;margin-top:-0px;margin-left:0px;" id="society_data">@ViewData["Selected_SocietyData"]</textarea>
         </div>
     </div>
 
@@ -85,17 +85,29 @@
             <span class="close" id="closeManageRegistrationRequestsPopup" style="position: absolute; top: 0px; right: 0px; font-size: 20px; cursor: pointer; background-color: darkred; color: white; padding: 8px 7px; ">&times;</span>
             <div style="margin-top: 50px; padding: 20px;">
                 <label for="pendingRequests" style="font-weight: bold;">Pending Requests:</label><br>
-                <select id="pendingRequests" name="pendingRequests" style="width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px;">
-                    <option value="request1">Request 1</option>
-                    <option value="request2">Request 2</option>
-                    <!-- Add more options dynamically from backend -->
-                </select>
-                <button id="rejectRequestBtn" style="background-color: #333333; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;position:absolute;top:140px;left:40px;">View Detailed Info</button>
-                <button id="acceptRequestBtn" style="background-color: #333333; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;position:absolute;top:200px;left:25px">Accept</button>
-                <button id="rejectRequestBtn" style="background-color: #333333; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;margin-top:68px;margin-left:100px;">Reject</button>
+                <form method="post" id="societyForm">
+                    <select id="pendingRequests" name="pendingRequests" asp-for="pendingRequests" style="width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px;">
+                        @foreach (var society in Model.Pending_Societies)
+                        {
+                            <option value="@society.Name">@society.Name</option>
+                        }
+                    </select>
+                    <form method="post">
+                        <button type="submit" name="DetailsBtn" value="DetailsBtn" style="background-color: #333333; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; position: absolute; top: 140px; left: 40px;">
+                            View Detailed Info
+                        </button>
+                        <button type="sSubmit" name="AcceptBtn" value="AcceptBtn" style="background-color: #333333; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; position: absolute; top: 200px; left: 25px;">
+                            Accept
+                        </button>
+                        <button type="submit" name="RejectBtn" value="RejectBtn" style="background-color: #333333; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; margin-top: 68px; margin-left: 100px;">
+                            Reject
+                        </button>
+                    </form>
+                </form>
             </div>
         </div>
     </div>
+
 
     <div id="makeAnnouncementPopup" class="popup-announcement" style="display: none;">
         <div class="popup-content" style="width: 500px; height: 400px; top: 392px; left: 752px; transform: translate(-50%, -50%); position: fixed;">
