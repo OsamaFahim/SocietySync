@@ -26,39 +26,46 @@
     </div>
 
     <div id="center">
-        <div id="Form">
-            <div id="Bar">
-                <h1><strong>Society Registration</strong></h1>
+        <form method="post">
+            <div id="Form">
+                <div id="Bar">
+                    <h1><strong>Society Registration</strong></h1>
+                </div>
+                <div>
+                    <label style="position: absolute; top: 0px; left: 0px; font-weight: bold; margin-left: 30px; margin-top: 60px; font-size: 24px; color: darkorange;" for="name"><b>Name:</b></label>
+                    <input style="position: absolute; top: 0; left: 0px; margin-top: 60px; margin-left: 180px;" type="text" id="name" name="name_input" asp-for="name_input" required>
+                    <span asp-validation-for="name_input" class="text-danger" style="color: red; font-weight: bold;"></span>
+                </div>
+                <div>
+                    <label style="position: absolute; top: 0px; left: 0px; font-weight: bold; margin-left: 30px; margin-top: 110px; font-size: 24px; color: darkorange;" for="category"><b>Category:</b></label>
+                    <select style="position: absolute; top: 0; left: 0px; margin-top: 110px; margin-left: 180px; width: 500px;" id="category" name="category_input" asp-for="category_input">
+                        <option value="">Select category...</option>
+                        <option value="Academic">Academic</option>
+                        <option value="Social">Social</option>
+                        <option value="Cultural">Cultural</option>
+                        <option value="Sports">Sports</option>
+                        <option value="Religious">Religious</option>
+                        <option value="Skill">Technical Skill Oriented</option>
+                    </select>
+                </div>
+                <div>
+                    <label style="position: absolute; top: 0px; left: 0px; font-weight: bold; margin-left: 30px; margin-top: 160px; font-size: 19px; color: darkorange;" for="goals"><b>Goals/Objectives:</b></label>
+                    <textarea style="height: 100px; position: absolute; top: 0; left: 0px; margin-top: 160px; margin-left: 180px;" id="goals" name="goals_input" asp-for="goals_input" rows="4" required></textarea>
+                </div>
+                <div>
+                    <label style="position: absolute; top: 0px; left: 0px; font-weight: bold; margin-left: 30px; margin-top: 300px; font-size: 17px; color: darkorange;" for="socialMedia"><b>Social Media Link:</b></label>
+                    <input style="position: absolute; top: 0; left: 0px; margin-top: 290px; margin-left: 180px;" type="url" id="socialMedia" name="socialMedia_input" asp-for="socialMedia_input">
+                    <span asp-validation-for="socialMedia_input" class="text-danger" style="color: red; font-weight: bold;"></span>
+                </div>
+                <button style="position: absolute; top: 0; left: 0px; margin-top: 350px; margin-left: 350px;" type="submit" id="Register_btn">Register</button>
             </div>
-            <div>
-                <label style=" position: absolute; top: 0px; left: 0px; font-weight: bold; margin-left: 30px; margin-top: 60px; font-size: 24px; color: darkorange;" for="name"><b>Name:</b></label>
-                <input style="position:absolute;top:0;left:0px;margin-top:60px;margin-left:180px;" type="text" id="name" name="name" required>
-            </div>
-            <div>
-                <label style=" position: absolute; top: 0px; left: 0px; font-weight: bold; margin-left: 30px; margin-top: 110px; font-size: 24px; color: darkorange;" for="category"><b>Category:</b></label>
-                <select style="position:absolute;top:0;left:0px;margin-top:110px;margin-left:180px;width:500px;"  id="category" name="category" required>
-                    <option value="">Select category...</option>
-                    <option value="Academic">Academic</option>
-                    <option value="Social">Social</option>
-                    <option value="Cultural">Cultural</option>
-                    <option value="Sports">Sports</option>
-                </select>
-            </div>
-            <div>
-                <label style=" position: absolute; top: 0px; left: 0px; font-weight: bold; margin-left: 30px; margin-top: 160px; font-size: 19px; color: darkorange;" for="goals"><b>Goals/Objectives:</b></label>
-                <textarea style="height:100px;position:absolute;top:0;left:0px;margin-top:160px;margin-left:180px;" id="goals" name="goals" rows="4" required></textarea>
-            </div>
-            <div>
-                <label style=" position: absolute; top: 0px; left: 0px; font-weight: bold; margin-left: 30px; margin-top: 300px; font-size: 17px; color: darkorange;" for="socialMedia"><b>Social Media Link:</b></label>
-                <input style="position:absolute;top:0;left:0px;margin-top:290px;margin-left:180px;" type="url" id="socialMedia" name="socialMedia">
-            </div>
-            <button style="position:absolute;top:0;left:0px;margin-top:350px;margin-left:350px;" type="submit" id="Register_btn">Register</button>
-        </div>
+        </form>
 
         <div class="tabs_bar">
-            <button style="position:absolute;top:0px;left:5px;" class="btn" onclick="location.href='@Url.Page("/Index")'"><span>Home</span></button>
+            <button style="position: absolute; top: 0px; left: 5px;" class="btn" onclick="location.href='@Url.Page("/Index")'"><span>Home</span></button>
         </div>
     </div>
+
 </body>
 </html>
 

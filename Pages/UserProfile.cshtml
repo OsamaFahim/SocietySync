@@ -21,25 +21,25 @@
     <div id="left">
         <div class="profile-box">
             <div style="background-color:darkorange;height:40px;margin-left:-10px;margin-top:-27px;width:220px;border-color:white;border-radius:4px;">  <h3 style="text-align:center;color:white;font-weight:bold;padding-top:10px;">My Information</h3></div>
-            <div class="strip"><p style="text-align:center;padding-top:5px;"  id="Name">Muhaimen</p> </div>
-            <div class="strip"> <p style="text-align:center;padding-top:5px;" id="username">21I-0888</p></div>
+            <div class="strip"><p style="text-align:center;padding-top:5px;" id="Name"> @ViewData["Name"]</p> </div>
+            <div class="strip"> <p style="text-align:center;padding-top:5px;" id="username" >@ViewData["Username"]</p></div>
             <button id="updateProfileBtn">Update Profile</button>
         </div>
     </div>
 
     <div id="center">
-       
-      g
         <div class="tabs_bar">
-            <button style="position:absolute;top:0px;left:5px;" class="btn" onclick="#"><span>Home</span></button>
-            <button style="position:absolute;top:0px;left:150px;" class="btn" onclick="#"><span>Register a Society</span></button>
-            <button style="position:absolute;top:0px;left:370px;" class="btn" onclick="#"><span>Apply Membership</span></button>
+            <form method="post">
+                <button style="position:absolute;top:0px;left:5px;" class="btn" type="submit" name="page" value="Home"><span>Home</span></button>
+                <button style="position:absolute;top:0px;left:150px;" class="btn" type="submit" name="page" value="RegisterSociety"><span>Register a Society</span></button>
+                <button style="position:absolute;top:0px;left:370px;" class="btn" type="submit" name="page" value="ApplyMembership"><span>Apply Membership</span></button>
+            </form>
             <div id="notifications">
                 <!-- Dropdown notifications tab -->
                 <div style="position:absolute;top:4px;left:760px;" class="dropdown">
                     <button class="dropbtn">Notifications</button>
                     <div style="background-color:gray;border-radius:5px;margin-left:5px;" class="dropdown-content">
-                        <a  id="notification_data" href="#">Notification 1</a>
+                        <a id="notification_data" href="#">Notification 1</a>
                         <a href="#">Notification 2</a>
                         <a href="#">Notification 3</a>
                     </div>
@@ -47,7 +47,6 @@
             </div>
         </div>
     </div>
-
 
 </body>
 </html>

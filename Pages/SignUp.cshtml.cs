@@ -151,7 +151,7 @@ namespace SocietySync.Pages
 
             await context.SaveChangesAsync();
 
-            return RedirectToPage("/Login");
+            return RedirectToPage("/UserProfile");
         }
     }
 }

@@ -13,8 +13,8 @@ namespace SocietySync.DBcontext
 
         // DbSets for each model
         public DbSet<User> Users { get; set; }
-      /*  public DbSet<Society> Societies { get; set; }
-        public DbSet<Event> Events { get; set; }
+        public DbSet<Society> Societies { get; set; }
+        /*public DbSet<Event> Events { get; set; }
         public DbSet<SocietyMembership> SocietyMemberships { get; set; }
         public DbSet<Announcement> Announcements { get; set; }
         public DbSet<Notification> Notifications { get; set; }*/

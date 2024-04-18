@@ -24,6 +24,11 @@ namespace SocietySync.Pages
             UserSession userSession = UserSession.Instance;
             userSession.SetLoggedInUser(Username_input);
 
+            if (Username_input == "admin" && Password_input == "admin")
+            {
+                return RedirectToPage("/AdminProfile");
+            }
+
             var context = userSession.GetSocietySyncContext();
 
             var user = context.Users.FirstOrDefault(u => u.RollNum == Username_input);
@@ -40,7 +45,7 @@ namespace SocietySync.Pages
                 return Page();
             }
 
-            return RedirectToPage("/Index");
+            return RedirectToPage("/UserProfile");
         }
 
     }
