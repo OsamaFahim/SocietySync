@@ -24,7 +24,8 @@ namespace SocietySync.Pages
             return page switch
             {
                 "RegisterSociety" => RedirectToPage("/SocietyRegisteration"),
-                _=> RedirectToPage("/Index"), 
+                "ApplyMembership" => RedirectToPage("/ApplyMembership"),
+                _=> RedirectToPage("/Index"),
             };
         }
 
