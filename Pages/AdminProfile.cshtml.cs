@@ -31,40 +31,42 @@ namespace SocietySync.Pages
         {
             var context = UserSession.Instance.GetSocietySyncContext();
 
-            if (!string.IsNullOrEmpty(Request.Form["pendingRequests"]))
+            if (Request.Form.TryGetValue("DetailsBtn", out var detailsButtonValue_temp) ||
+                Request.Form.TryGetValue("AcceptBtn", out var AcceptButtonValue_temp) ||
+                Request.Form.TryGetValue("RejectBtn", out var RejectButtonValue_temp))
             {
-                if (Request.Form.TryGetValue("DetailsBtn", out var detailsButtonValue))
+                if (!string.IsNullOrEmpty(Request.Form["pendingRequests"]))
                 {
-                    string selectedPendingSocietyName = Request.Form["pendingRequests"];
-                    var SelectedSociety = context.Societies.FirstOrDefault(s => s.Name == selectedPendingSocietyName);
+                    if (Request.Form.TryGetValue("DetailsBtn", out var detailsButtonValue))
+                    {
+                        string selectedPendingSocietyName = Request.Form["pendingRequests"];
+                        var SelectedSociety = context.Societies.FirstOrDefault(s => s.Name == selectedPendingSocietyName);
 
-                    var Selected_Society_Data = $"Soceity Name: {SelectedSociety.Name}\n\n";
-                    Selected_Society_Data += $"Requester Roll-Num: {SelectedSociety.PresidentRollNum}\n\n";
-                    Selected_Society_Data += $"Category: {SelectedSociety.Category}\n\n";
-                    Selected_Society_Data += $"Goals/Objectives: {SelectedSociety.Goals}\n\n";
-                    Selected_Society_Data += $"Social-Media Link: {SelectedSociety.Link}\n\n";
+                        Utility utility = new Utility();
+                        var Selected_Society_Data = utility.AddSocietyData_to_ViewModel(SelectedSociety);
 
+                        ViewData["Selected_SocietyData"] = Selected_Society_Data;
 
-                    ViewData["Selected_SocietyData"] = Selected_Society_Data;
-
+                    }
+                    else if (Request.Form.TryGetValue("AcceptBtn", out var AcceptButtonValue))
+                    {
+                        string selectedPendingSocietyName = Request.Form["pendingRequests"];
+                        var selectedSociety = context.Societies.FirstOrDefault(s => s.Name == selectedPendingSocietyName);
+                        selectedSociety.Status = true;
+                        context.SaveChanges();
+                    }
+                    else if (Request.Form.TryGetValue("RejectBtn", out var RejectButtonValue))
+                    {
+                        string selectedPendingSocietyName = Request.Form["pendingRequests"];
+                        var selectedSociety = context.Societies.FirstOrDefault(s => s.Name == selectedPendingSocietyName);
+                        context.Remove(selectedSociety);
+                        context.SaveChanges();
+                    }
                 }
-                else if (Request.Form.TryGetValue("AcceptBtn", out var AcceptButtonValue))
-                {
-                    string selectedPendingSocietyName = Request.Form["pendingRequests"];
-                    var selectedSociety = context.Societies.FirstOrDefault(s => s.Name == selectedPendingSocietyName);
-                    selectedSociety.Status = true;
-                    context.SaveChanges();
-                }
-                else if (Request.Form.TryGetValue("RejectBtn", out var RejectButtonValue))
-                {
-                    string selectedPendingSocietyName = Request.Form["pendingRequests"];
-                    var selectedSociety = context.Societies.FirstOrDefault(s => s.Name == selectedPendingSocietyName);
-                    context.Remove(selectedSociety);
-                    context.SaveChanges();
 
-                }
+                TempData["KeepPopupOpen"] = true;
             }
-            
+
             PopulateData();
             return Page();
         }
