@@ -21,5 +21,8 @@ public class Society
     [ForeignKey("PresidentRollNum")]
     public User President { get; set; }
 
-    public bool Status { get; set; } = false; 
+    public bool Status { get; set; } = false;
+
+    //Foreign Keys
+    public ICollection<SocietyMembership> Memberships { get; set; }
 }

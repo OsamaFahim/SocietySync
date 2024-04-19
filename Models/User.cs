@@ -37,8 +37,12 @@ namespace SocietySync.Models
         [Required]
         public string Hashed_Password { get; set; }
 
-        //Foreign Key with Society as President will be a User
+        //Foreign Keys 
         public ICollection<Society> PresidedSocieties { get; set; }
+
+        public ICollection<SocietyMembership> Memberships { get; set; }
+
+
     }
 
     // Uncomment to define Society_Table entity
