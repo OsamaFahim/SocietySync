@@ -57,24 +57,26 @@ namespace SocietySync.Migrations
                     b.Property<string>("Member_RollNum")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Role")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Society_Name")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Society")
+                    b.Property<string>("Role")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SocietyName")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Society_Name")
+                    b.Property<string>("UserRollNum")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("Member_RollNum");
+                    b.HasKey("Member_RollNum", "Society_Name")
+                        .HasName("ID");
 
                     b.HasIndex("SocietyName");
+
+                    b.HasIndex("UserRollNum");
 
                     b.ToTable("SocietyMemberships");
                 });
@@ -100,7 +102,7 @@ namespace SocietySync.Migrations
             modelBuilder.Entity("Society", b =>
                 {
                     b.HasOne("SocietySync.Models.User", "President")
-                        .WithMany("PresidedSocieties")
+                        .WithMany("PresidentSocieties")
                         .HasForeignKey("PresidentRollNum")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -110,17 +112,19 @@ namespace SocietySync.Migrations
 
             modelBuilder.Entity("SocietySync.Models.SocietyMembership", b =>
                 {
-                    b.HasOne("SocietySync.Models.User", "Member")
-                        .WithMany("Memberships")
-                        .HasForeignKey("Member_RollNum")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Society", null)
+                    b.HasOne("Society", "Society")
                         .WithMany("Memberships")
                         .HasForeignKey("SocietyName");
 
-                    b.Navigation("Member");
+                    b.HasOne("SocietySync.Models.User", "User")
+                        .WithMany("SocietyMemberships")
+                        .HasForeignKey("UserRollNum")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Society");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Society", b =>
@@ -130,9 +134,9 @@ namespace SocietySync.Migrations
 
             modelBuilder.Entity("SocietySync.Models.User", b =>
                 {
-                    b.Navigation("Memberships");
+                    b.Navigation("PresidentSocieties");
 
-                    b.Navigation("PresidedSocieties");
+                    b.Navigation("SocietyMemberships");
                 });
 #pragma warning restore 612, 618
         }

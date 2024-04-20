@@ -21,16 +21,18 @@
     </div>
     <div id="left">
         <div class="society-menu">
-            <button class="menu-btn">View Info</button>
-            <button class="menu-btn">View Members</button>
-            <button class="menu-btn">View Events</button>
-            <button class="menu-btn">View Funds</button>
-            <button class="menu-btn">View Requests</button>
-            <button class="menu-btn" id="makeAnnouncementBtn">Make Announcement</button>
-            <button class="menu-btn" id="manageMembersBtn">Manage Members</button>
-            <button class="menu-btn" id="manageMembershipRequestsBtn">Manage Requests</button>
-            <button class="menu-btn" id="organizeEventBtn">Organize Event</button>
-            <button class="menu-btn">View History</button>
+            <form method="post">
+                <button type="submit" name="MenuButton" value = "ViewInfo" class="menu-btn">View Info</button>
+                <button type="submit" name="MenuButton" value="ViewMemebers" class="menu-btn">View Members</button>
+                <button type="submit" name="MenuButton" value="ViewEvents" class="menu-btn">View Events</button>
+                <button type="submit" name="MenuButton" value="ViewFunds" class="menu-btn">View Funds</button>
+                <button type="submit" name="MenuButton" value="ViewRequests" class="menu-btn">View Requests</button>
+                <button type="submit" name="MenuButton" value="MakeAnnouncement" class="menu-btn">Make Announcement</button>
+                <button type="submit" name="MenuButton" value="ManageMembers" class="menu-btn">Manage Members</button>
+                <button type="submit" name="MenuButton" value="ManageRequests" class="menu-btn">Manage Requests</button>
+                <button type="submit" name="MenuButton" value="OrganizeEvent" class="menu-btn">Organize Event</button>
+                <button type="submit" name="MenuButton" value="ViewHistory" class="menu-btn">View History</button>
+            </form>
         </div>
     </div>
 
@@ -114,7 +116,7 @@
         </div>
     </div>
 
-    <div id="manageMembershipRequestsPopup" class="popup" style="display: none;">
+    <div id="manageMembershipRequestsPopup" class="popup" @if (ViewData["ManageRequestsPopup"] != null && (bool)ViewData["ManageRequestsPopup"]) { <text>style="display: block;"</text> } style="display: none;" >
         <div class="popup-content">
             <div style="width:100%;height:40px;background-color:#333333;position:absolute;top:0;">
                 <h3 style="color:white;font-weight:bold;text-align:center;margin-top:7px;">Manage Requests</h3>
@@ -122,14 +124,20 @@
             <span class="close" id="closeManageMembershipRequestsPopup" style="position: absolute; top: 0px; right: 0px; font-size: 20px; cursor: pointer; background-color: darkred; color: white; padding: 8px 7px; ">&times;</span>
             <div style="margin-top: 50px; padding: 20px;">
                 <label for="pendingRequests" style="font-weight: bold;">Pending Requests:</label><br>
-                <select id="pendingRequests" name="pendingRequests" style="width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px;">
-                    <option value="request1">Request 1</option>
-                    <option value="request2">Request 2</option>
-
-                </select>
-                <button id="viewRequestDetailsBtn" style="background-color: #333333; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;position:absolute;top:140px;left:40px;">View Detailed Info</button>
-                <button id="acceptRequestBtn" style="background-color: #333333; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;position:absolute;top:200px;left:25px">Accept</button>
-                <button id="rejectRequestBtn" style="background-color: #333333; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;margin-top:68px;margin-left:100px;">Reject</button>
+                <form method="post">
+                    <select id="pendingRequests" name="pendingRequests" style="width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px;">
+                        @if(Model.pending_Users != null)
+                        {
+                            @foreach (var user in Model.pending_Users)
+                            {
+                                 <option value="@user.RollNum">@user.RollNum</option>
+                            }
+                        }
+                    </select>
+                    <button type="submit" name="viewRequestDetailsBtn" value = "viewRequestDetailsBtn" style="background-color: #333333; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;position:absolute;top:140px;left:40px;">View Detailed Info</button>
+                    <button type="submit" name="acceptRequestBtn" value = "acceptRequestBtn" style="background-color: #333333; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;position:absolute;top:200px;left:25px">Accept</button>
+                    <button button type="submit" name="RejectRequestBtn" value = "RejectRequestBtn" style="background-color: #333333; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;margin-top:68px;margin-left:100px;">Reject</button>
+                </form>
             </div>
         </div>
     </div>

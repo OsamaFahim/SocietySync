@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using SocietySync.Models;
+using SocietySync.DBcontext;
 
 namespace SocietySync.Pages
 {
