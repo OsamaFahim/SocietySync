@@ -7,18 +7,17 @@ namespace SocietySync.Models
 {
     public class SocietyMembership
     {
-        [Key] 
-        public string Member_RollNum { get; set; }
+        [Required]
+        public string Member_RollNum { get; set; } //Foreign key
 
-        [ForeignKey("Member_RollNum")]
-        public User Member { get; set; }
-
-        public string Society_Name { get; set; }
-
-        [ForeignKey("Society_Name")]
-        public string Society { get; set; }
+        [Required]
+        public string Society_Name { get; set; }  //Foreign key
 
         public string Role { get; set; } = "New_member";
+
+        //Navigation Properties
+        public virtual User User { get; set; }
+        public virtual Society Society { get; set; }
     }
 
 }

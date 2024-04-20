@@ -7,24 +7,24 @@ using System.Linq;
 
 namespace SocietySync.Models
 {
-/*    public class User_Model : DbContext
-    {
-        public User_Model() : base("name=Model")
+    /*    public class User_Model : DbContext
         {
-        }
+            public User_Model() : base("name=Model")
+            {
+            }
 
-        public DbSet<User> Users { get; set; }
+            public DbSet<User> Users { get; set; }
 
-        // Uncomment if Society_Table is an entity with a relationship to User
-        // public DbSet<Society_Table> SocietyTables { get; set; }
+            // Uncomment if Society_Table is an entity with a relationship to User
+            // public DbSet<Society_Table> SocietyTables { get; set; }
 
-      *//*  public void DeleteAllUsers()
-        {
-            var allUsers = Users.ToList();
-            Users.RemoveRange(allUsers);
-            SaveChanges();
-        }*//*
-    }*/
+          *//*  public void DeleteAllUsers()
+            {
+                var allUsers = Users.ToList();
+                Users.RemoveRange(allUsers);
+                SaveChanges();
+            }*//*
+        }*/
 
     public class User
     {
@@ -37,12 +37,9 @@ namespace SocietySync.Models
         [Required]
         public string Hashed_Password { get; set; }
 
-        //Foreign Keys 
-        public ICollection<Society> PresidedSocieties { get; set; }
+        public virtual ICollection<Society> PresidentSocieties { get; set; }
 
-        public ICollection<SocietyMembership> Memberships { get; set; }
-
-
+        public virtual ICollection<SocietyMembership> SocietyMemberships { get; set; }
     }
 
     // Uncomment to define Society_Table entity

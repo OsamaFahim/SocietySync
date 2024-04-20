@@ -21,6 +21,7 @@
                 <button type="submit" name="MenuButton" value="AllSocieties" class="menu-btn">All Societies</button>
                 <button type="submit" name="MenuButton" value="CurrentSocieties" class="menu-btn">Current Societies</button>
                 <button type="submit" name="MenuButton" value="Register" class="menu-btn" id="registerBtn">Register</button>
+                <button type="submit" name="MenuButton" value="MySocietiesBtn" class="menu-btn" id="MySocietiesBtn">My Societies</button>
             </form>
         </div>
     </div>
@@ -56,15 +57,45 @@
             <span class="close" onclick="closePopup('registerPopup')" style="position: absolute; top: 0px; right: 0px; font-size: 20px; cursor: pointer; background-color: darkred; color: white; padding: 8px 7px; ">&times;</span>
             <div style="margin-top: 50px; padding: 20px;">
             <label for="societyList" style="font-weight: bold;">Select Society:</label><br>
-            <form method="post" id="societyForm">
-                <select id="societyList" name="societyList"  style="width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px;">
-                @* @foreach (var society in Model.societyList)
-                {
-                    <option value="@society.Name">@society.Name</option>
-                } *@
+            <form method="post">
+                <select id="SelectedSociety" name="SelectedSociety" style="width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px;">
+                    @if (Model.societyList != null)
+                    {
+                        @foreach (var society in Model.societyList)
+                        {
+                            <option value="@society.Name">@society.Name</option>
+                        }
+                    }
                 </select>
+                <button type="submit" id="applyMembershipBtn" name="applyMembershipBtn" value="applyMembershipBtn" style="display: block; width: 100%; background-color: #333333; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">Apply Membership</button>
             </form>
-                <button type="submit" id="applyMembershipBtn" style="display: block; width: 100%; background-color: #333333; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">Apply Membership</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="MySocietiesPopup" class="popup" @if (ViewData["MySocietiesPopup"] != null && (bool)ViewData["MySocietiesPopup"])
+    {
+        <text>style="display: block;"</text>
+    }>
+        <div class="popup-content">
+            <div style="width:100%;height:40px;background-color:#333333;position:absolute;top:0;">
+                <h3 style="color:white;font-weight:bold;text-align:center;margin-top:7px;">Select your Society</h3>
+            </div>
+            <span class="close" onclick="closePopup('registerPopup')" style="position: absolute; top: 0px; right: 0px; font-size: 20px; cursor: pointer; background-color: darkred; color: white; padding: 8px 7px; ">&times;</span>
+            <div style="margin-top: 50px; padding: 20px;">
+            <label for="societyList" style="font-weight: bold;">Select Society:</label><br>
+            <form method="post">
+                <select id="SelectedSociety_My" name="SelectedSociety_My" style="width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px;">
+                        @if (Model.societyList != null)
+                        {
+                            @foreach (var society in Model.societyList)
+                            {
+                                    <option value="@society.Name">@society.Name</option>
+                            }
+                        }
+                </select>
+                <button type="submit" id="MySocietyBtn" name="MySocietyBtn" value="MySocietyBtn" style="display: block; width: 100%; background-color: #333333; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">Manage Society</button>
+            </form>
             </div>
         </div>
     </div>
@@ -87,11 +118,18 @@
             });
         });
 
-        // Event listener for Apply Membership button
-        document.getElementById("applyMembershipBtn").addEventListener("click", function () {
-            // Code to handle applying membership
-            closePopup("registerPopup");
+        // Event listener for Register button
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("SearchBtn").addEventListener("click", function (event) {
+                openPopup("MySocietiesPopup");
+            });
         });
+
+        // Event listener for Apply Membership button
+        // document.getElementById("applyMembershipBtn").addEventListener("click", function () {
+            // Code to handle applying membership
+        //    closePopup("registerPopup");
+        //});
     </script>
 </body>
 

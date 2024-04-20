@@ -1,4 +1,5 @@
-﻿using SocietySync.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using SocietySync.Models;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -15,7 +16,6 @@ public class Society
 
     public string Link { get; set; }  //A society currently might not be on social media
 
-    [Required]
     public string PresidentRollNum { get; set; }
 
     [ForeignKey("PresidentRollNum")]
@@ -23,6 +23,5 @@ public class Society
 
     public bool Status { get; set; } = false;
 
-    //Foreign Keys
-    public ICollection<SocietyMembership> Memberships { get; set; }
+    public virtual ICollection<SocietyMembership>? Memberships { get; set; }
 }

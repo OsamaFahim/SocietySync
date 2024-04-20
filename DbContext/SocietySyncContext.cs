@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SocietySync.Models;
 using System.Net.Sockets;
 
@@ -24,14 +25,9 @@ namespace SocietySync.DBcontext
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
-            // Custom configurations go here
-
-            // For example, to configure a composite key if needed:
-            // modelBuilder.Entity<YourEntity>().HasKey(e => new { e.FirstKeyId, e.SecondKeyId });
-
-            // Setup relationships and any configuration specific to your models
-            // This is where you can use Fluent API to configure constraints, indexes, etc.
+            modelBuilder.Entity<SocietyMembership>()
+                .HasKey(e => new { e.Member_RollNum, e.Society_Name })
+                .HasName("ID");
         }
     }
 }
