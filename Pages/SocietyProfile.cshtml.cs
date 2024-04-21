@@ -2,11 +2,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using SocietySync.DBcontext;
 using SocietySync.Models;
+using System.Globalization;
 
 namespace SocietySync.Pages
 {
     public class SocietyProfileModel : PageModel
     {
+        [BindProperty]
+        public DateTime EventDate { get; set; }
 
         public List<User> pending_Users; 
         public void OnGet()
@@ -139,9 +142,103 @@ namespace SocietySync.Pages
             ViewData["ManageMembersPopup"] = true;
         }
 
-        public void removeMember_Changes()
+        public void removeMember_ButtonClick()
         {
+            var context = UserSession.Instance.GetSocietySyncContext();
+            string My_SocietyName = Request.Query["stringValue"];
 
+            pending_Users = GetPendingUsers_ExsistingMembers();
+            string Selected_Member_RollNum = Request.Form["MemberRollNumber"];
+
+            var membership = context.SocietyMemberships.FirstOrDefault(sm => sm.Society_Name == My_SocietyName && sm.Member_RollNum == Selected_Member_RollNum && sm.Role != "New_Member");
+            context.SocietyMemberships.Remove(membership);
+            context.SaveChanges();
+            pending_Users = GetPendingUsers_ExsistingMembers();
+            ViewMembers_ButtonClick(); //because i want this functionality
+            ViewData["ManageMembersPopup"] = true;
+        }
+
+        public void OrganizeEvent_ButtonClick()
+        {
+            ViewData["OrganizeEventPopup"] = true;
+        }
+        public void submitEvent_ButtonClick()
+        {
+            string eventName = Request.Form["eventName"];
+            string eventType = Request.Form["eventType"];
+            var eventDate = DateTime.Parse(Request.Form["eventDate"]);
+            string eventDescription = Request.Form["eventDescription"];
+
+            if (string.IsNullOrWhiteSpace(eventName) ||
+                string.IsNullOrWhiteSpace(eventType) ||
+                string.IsNullOrWhiteSpace(eventDescription) ||
+                eventDate == DateTime.MinValue)
+            {
+                ModelState.AddModelError(nameof(SocietyProfileModel.EventDate), "Please Fill all the Fields");
+                ViewData["OrganizeEventPopup"] = true;
+                return;
+            }
+
+
+            if (eventDate < DateTime.Today)
+            {
+                ModelState.AddModelError(nameof(SocietyProfileModel.EventDate), "Date must be of today or after");
+                ViewData["OrganizeEventPopup"] = true;
+                return; 
+            }
+
+            var context = UserSession.Instance.GetSocietySyncContext();
+            string My_SocietyName = Request.Query["stringValue"];
+            var existingEvent = context.Events.FirstOrDefault(e => e.Name ==  eventName && e.Society_Name == My_SocietyName);
+
+            if (existingEvent != null)
+            {
+                existingEvent.Name = eventName;
+                existingEvent.Date = eventDate;
+                existingEvent.Type = eventType;
+                existingEvent.Description = eventDescription;
+                existingEvent.Society_Name = My_SocietyName;
+                existingEvent.Society = context.Societies.FirstOrDefault(s => s.Name == My_SocietyName);
+
+            }
+            else
+            {
+                // Create a new Event entity and add it to the context
+                var newEvent = new Event
+                {
+                    Name = eventName,
+                    Date = (DateTime)eventDate,
+                    Type = eventType,
+                    Description = eventDescription,
+                    Society_Name = My_SocietyName,
+                    Society = context.Societies.FirstOrDefault(s => s.Name == My_SocietyName)
+                };
+                context.Events.Add(newEvent);
+            }
+
+            context.SaveChanges();
+            ModelState.AddModelError(nameof(SocietyProfileModel.EventDate), "");
+            ViewData["OrganizeEventPopup"] = true;
+        }
+
+        public void MakeAnnouncement_ButtonClick()
+        {
+            ViewData["makeAnnouncementPopup"] = true;
+        }
+
+        public void submitAnnouncement_ButtonClick()
+        {
+            var context = UserSession.Instance.GetSocietySyncContext();
+            string content = Request.Form["announcementText"];
+            var newAnnouncement = new Announcement
+            {
+                PostedByUser = context.Users.FirstOrDefault(u => u.RollNum == UserSession.Instance.LoggedInRollNumber),
+                Content = content,
+                UserType = "President"
+            };
+            context.Announcements.Add(newAnnouncement);
+            context.SaveChanges();
+            ViewData["makeAnnouncementPopup"] = true;
         }
 
         public async Task<IActionResult> OnPost()
@@ -159,9 +256,15 @@ namespace SocietySync.Pages
                     case "ManageRequests":
                         ManageRequests_ButtonClick();
                         break;
+                    case "OrganizeEvent":
+                        OrganizeEvent_ButtonClick();
+                        break;
+                    case "MakeAnnouncement":
+                        MakeAnnouncement_ButtonClick();
+                        break;
+
                 }
             }
-
 
             if (Request.Form.TryGetValue("viewRequestDetailsBtn", out var viewRequestDetailsBtn))
             {
@@ -183,7 +286,23 @@ namespace SocietySync.Pages
                 SaveChanges_ButtonClick();
             }
 
-             return Page();
+            if (Request.Form.TryGetValue("removeMemberBtn", out var removeMemberBtn))
+            {
+                removeMember_ButtonClick();
+            }
+
+            if (Request.Form.TryGetValue("submitEventBtn", out var submitEventBtn))
+            {
+                submitEvent_ButtonClick();
+            }
+
+
+            if (Request.Form.TryGetValue("submitAnnouncementBtn", out var submitAnnouncementBtn))
+            {
+                submitAnnouncement_ButtonClick();
+            }
+
+            return Page();
         }
     }
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SocietySync.DBcontext;
 
@@ -11,9 +12,11 @@ using SocietySync.DBcontext;
 namespace SocietySync.Migrations
 {
     [DbContext(typeof(SocietySyncContext))]
-    partial class SocietySyncContextModelSnapshot : ModelSnapshot
+    [Migration("20240421092907_MigrationNameV12")]
+    partial class MigrationNameV12
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

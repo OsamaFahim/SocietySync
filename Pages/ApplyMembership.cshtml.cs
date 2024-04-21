@@ -116,8 +116,19 @@ namespace SocietySync.Pages
                         MySocieties_buttonClick();
                         break;
                 }
-            } 
-            
+            }
+
+            if (Request.Form.TryGetValue("Upper_MenuButton", out var Upper_Menu))
+            {
+                switch (Upper_Menu)
+                {
+                    case "Home":
+                       return RedirectToPage("/Index");
+                    case "Events":
+                        return RedirectToPage("/Home");
+                }
+            }
+
             if (Request.Form.TryGetValue("applyMembershipBtn", out var applyMembershipBtn))
             {
                 ApplyMembership_buttonClick();

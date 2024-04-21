@@ -13,6 +13,12 @@ namespace SocietySync.Pages
         [BindProperty]
         public string pendingRequests { get; set; }
 
+        public void update_Users_count()
+        {
+            var context = UserSession.Instance.GetSocietySyncContext();
+            UserCount = context.Users.Count();
+        }
+
         public void PopulateData()
         {
             var context = UserSession.Instance.GetSocietySyncContext();
@@ -24,12 +30,67 @@ namespace SocietySync.Pages
 
         public void OnGet()
         {
-           PopulateData();
+            update_Users_count();
+        }
+
+        public void ManageRequests_ButtonClick()
+        {
+            PopulateData();
+            ViewData["manageRegistrationPopup"] = true;
+        }
+
+        public void MakeAnnoucement_ButtonClick()
+        {
+            ViewData["makeAnnoucementsPopup"] = true;
+        }
+
+        public void RemoveSocieties_ButtonClick()
+        {
+            ViewData["RemoveSocietiesPopup"] = true;
+        }
+
+        public void RemoveUsers_ButtonClick()
+        {
+            ViewData["RemoveMembersPopup"] = true;
+        }
+
+        public void submitAnnoucment_buttonClick()
+        {
+            var context = UserSession.Instance.GetSocietySyncContext();
+            string content = Request.Form["announcementText"];
+            var newAnnouncement = new Announcement
+            {
+                Content = content,
+                UserType = "Admin"
+            };
+            context.Announcements.Add(newAnnouncement);
+            context.SaveChanges();
+            ViewData["makeAnnouncementPopup"] = true;
         }
 
         public async Task<IActionResult> OnPost()
         {
             var context = UserSession.Instance.GetSocietySyncContext();
+
+            if (Request.Form.TryGetValue("MenuButton", out var MenuButton))
+            {
+                switch (MenuButton)
+                {
+                    case "ManageRequests":
+                        ManageRequests_ButtonClick();
+                        break;
+                    case "MakeAnnoucement":
+                        MakeAnnoucement_ButtonClick();
+                        break;
+                    case "RemoveSocieties":
+                        RemoveSocieties_ButtonClick();
+                        break;
+                    case "RemoveUsers":
+                        RemoveUsers_ButtonClick();  
+                        break;
+
+                }
+            }
 
             if (Request.Form.TryGetValue("DetailsBtn", out var detailsButtonValue_temp) ||
                 Request.Form.TryGetValue("AcceptBtn", out var AcceptButtonValue_temp) ||
@@ -48,7 +109,7 @@ namespace SocietySync.Pages
                         ViewData["Selected_SocietyData"] = Selected_Society_Data;
 
                     }
-                    else if (Request.Form.TryGetValue("AcceptBtn", out var AcceptButtonValue))
+                    else if (Request.Form.TryGetValue("AcceptBtn", out var AcceptButtonValues))
                     {
                         string selectedPendingSocietyName = Request.Form["pendingRequests"];
                         var selectedSociety = context.Societies.FirstOrDefault(s => s.Name == selectedPendingSocietyName);
@@ -64,12 +125,17 @@ namespace SocietySync.Pages
                     }
                 }
 
-                TempData["KeepPopupOpen"] = true;
+                ViewData["manageRegistrationPopup"] = true;
+                PopulateData();
             }
 
-            PopulateData();
+            if ((Request.Form.TryGetValue("submitAnnouncementBtn", out var submitAnnouncementBtn)))
+            {
+                submitAnnoucment_buttonClick();
+            }
+
+            update_Users_count();
             return Page();
         }
-
     }
 }

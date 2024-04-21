@@ -40,6 +40,8 @@ namespace SocietySync.Models
         public virtual ICollection<Society> PresidentSocieties { get; set; }
 
         public virtual ICollection<SocietyMembership> SocietyMemberships { get; set; }
+
+        public virtual ICollection<Announcement>? Announcements { get; set; }
     }
 
     // Uncomment to define Society_Table entity
