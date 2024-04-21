@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SocietySync.DBcontext;
 
@@ -11,9 +12,11 @@ using SocietySync.DBcontext;
 namespace SocietySync.Migrations
 {
     [DbContext(typeof(SocietySyncContext))]
-    partial class SocietySyncContextModelSnapshot : ModelSnapshot
+    [Migration("20240420201629_MigrationNameV8")]
+    partial class MigrationNameV8
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,32 +54,6 @@ namespace SocietySync.Migrations
                     b.HasIndex("PresidentRollNum");
 
                     b.ToTable("Societies");
-                });
-
-            modelBuilder.Entity("SocietySync.Models.Announcement", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PostedByUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("UserType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PostedByUserId");
-
-                    b.ToTable("Announcements");
                 });
 
             modelBuilder.Entity("SocietySync.Models.Event", b =>
@@ -168,15 +145,6 @@ namespace SocietySync.Migrations
                     b.Navigation("President");
                 });
 
-            modelBuilder.Entity("SocietySync.Models.Announcement", b =>
-                {
-                    b.HasOne("SocietySync.Models.User", "PostedByUser")
-                        .WithMany("Announcements")
-                        .HasForeignKey("PostedByUserId");
-
-                    b.Navigation("PostedByUser");
-                });
-
             modelBuilder.Entity("SocietySync.Models.Event", b =>
                 {
                     b.HasOne("Society", "Society")
@@ -214,8 +182,6 @@ namespace SocietySync.Migrations
 
             modelBuilder.Entity("SocietySync.Models.User", b =>
                 {
-                    b.Navigation("Announcements");
-
                     b.Navigation("PresidentSocieties");
 
                     b.Navigation("SocietyMemberships");

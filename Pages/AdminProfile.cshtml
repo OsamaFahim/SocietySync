@@ -20,16 +20,17 @@
     </div>
     <div id="left">
         <div class="society-menu">
-            <button class="menu-btn">View Info</button>
-            <button class="menu-btn">View Users</button>
-            <button class="menu-btn">View Societies</button>
-            <button class="menu-btn" id="viewRegistrationRequestsBtn">View Requests</button>
-            <button class="menu-btn" id="makeAnnouncementBtn">Make Announcement</button>
-            <button class="menu-btn" id="manageMembersBtn">Manage Users</button>
-            <button class="menu-btn" id="manageSocietiesBtn">Manage Societies</button>
-
-            <button class="menu-btn" id="manageRegistrationRequestsBtn">Manage Requests</button>
-            <button class="menu-btn">View History</button>
+            <form method="post">
+                <button type="submit" name="MenuButton" value="ViewInfo" class="menu-btn">View Info</button>
+                <button type="submit" name="MenuButton" value="ViewUsers" class="menu-btn">View Users</button>
+                <button type="submit" name="MenuButton" value="ViewSocieties" class="menu-btn">View Societies</button>
+                <button type="submit" name="MenuButton" value="ViewRequests" class="menu-btn" id="viewRegistrationRequestsBtn">View Requests</button>
+                <button type="submit" name="MenuButton" value="MakeAnnoucement" class="menu-btn" id="makeAnnouncementBtn">Make Announcement</button>
+                <button type="submit" name="MenuButton" value="RemoveUsers" class="menu-btn" id="manageMembersBtn">Remove Users</button>
+                <button type="submit" name="MenuButton" value="RemoveSocieties" class="menu-btn" id="manageSocietiesBtn">Remove Societies</button>
+                <button type="submit" name="MenuButton" value="ManageRequests" class="menu-btn" id="manageRegistrationRequestsBtn">Manage Requests</button>
+                <button type="submit" name="MenuButton" value="ViewHistory" class="menu-btn">View History</button>
+            </form>
         </div>
     </div>
 
@@ -47,7 +48,14 @@
         </div>
     </div>
 
-    <div id="manageMembersPopup" class="popup">
+    <div id="RemoveMembersPopup" class="popup" @if (ViewData["RemoveMembersPopup"] != null && (bool)ViewData["RemoveMembersPopup"])
+    {
+        <text>style="display: block;"</text>
+    }
+    else
+    {
+        <text>style="display: none;"</text>
+    })>
         <div class="popup-content">
             <div style="width:100%;height:40px;background-color:#333333;position:absolute;top:0;">
                 <h3 style="color:white;font-weight:bold;text-align:center;margin-top:7px;">Manage User</h3>
@@ -62,7 +70,14 @@
         </div>
     </div>
 
-    <div id="manageSocietiesPopup" class="popup">
+    <div id="RemoveSocietiesPopup" class="popup" @if (ViewData["RemoveSocietiesPopup"] != null && (bool)ViewData["RemoveSocietiesPopup"])
+    {
+        <text>style="display: block;"</text>
+    }
+    else
+    {
+        <text>style="display: none;"</text>
+    })>
         <div class="popup-content">
             <div style="width:100%;height:40px;background-color:#333333;position:absolute;top:0;">
                 <h3 style="color:white;font-weight:bold;text-align:center;margin-top:7px;">Manage Societies</h3>
@@ -77,7 +92,10 @@
         </div>
     </div>
 
-    <div id="manageRegistrationRequestsPopup" class="popup" style="@(TempData["KeepPopupOpen"] != null && (bool)TempData["KeepPopupOpen"] ? "display: block;" : "display: none;")">
+    <div id="manageRegistrationRequestsPopup" class="popup" @if (ViewData["manageRegistrationPopup"] != null && (bool)ViewData["manageRegistrationPopup"])
+    {
+        <text>style="display: block;"</text>
+    }>
         <div class="popup-content">
             <div style="width:100%;height:40px;background-color:#333333;position:absolute;top:0;">
                 <h3 style="color:white;font-weight:bold;text-align:center;margin-top:7px;">Manage Requests</h3>
@@ -87,9 +105,12 @@
                 <label for="pendingRequests" style="font-weight: bold;">Pending Requests:</label><br>
                 <form method="post" id="societyForm">
                     <select id="pendingRequests" name="pendingRequests" asp-for="pendingRequests" style="width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px;">
-                        @foreach (var society in Model.Pending_Societies)
+                        @if (Model.Pending_Societies != null)
                         {
-                            <option value="@society.Name">@society.Name</option>
+                            @foreach (var society in Model.Pending_Societies)
+                            {
+                                <option value="@society.Name">@society.Name</option>
+                            }
                         }
                     </select>
                     <form method="post">
@@ -108,7 +129,14 @@
         </div>
     </div>
 
-    <div id="makeAnnouncementPopup" class="popup-announcement" style="display: none;">
+    <div id="makeAnnouncementPopup" class="popup-announcement" @if (ViewData["makeAnnoucementsPopup"] != null && (bool)ViewData["makeAnnoucementsPopup"])
+    {
+        <text>style="display: block;"</text>
+    }
+    else
+    {
+        <text>style="display: none;"</text>
+    })>
         <div class="popup-content" style="width: 500px; height: 400px; top: 392px; left: 752px; transform: translate(-50%, -50%); position: fixed;">
             <div style="position:absolute;width:100%;height:40px;background-color:#333333;top:0;">
                 <h3 style="color:white;font-weight:bold;text-align:center;margin-top:7px;">Make Announcement</h3>
@@ -116,10 +144,12 @@
             <span class="close" id="closeMakeAnnouncementPopup" style="position: absolute; top: 0px; right: 0px; font-size: 20px; cursor: pointer; background-color: darkred; color: white; padding: 8px 7px; ">&times;</span>
             <div style="margin-top: 50px; padding: 20px;">
                 <label for="announcementText" style="font-weight: bold;">Announcement:</label><br>
-                <textarea id="announcementText" style="width: calc(100% - 40px); height: 150px; margin-bottom: 10px; padding: 10px; border-radius: 5px; border: 1px solid #ccc;"></textarea>
-                <div style="text-align: center;">
-                    <button id="submitAnnouncementBtn" style="background-color: #333333; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">Submit</button>
-                </div>
+                <form method="post">
+                    <textarea id="announcementText" name="announcementText" style="width: calc(100% - 40px); height: 150px; margin-bottom: 10px; padding: 10px; border-radius: 5px; border: 1px solid #ccc;"></textarea>
+                    <div style="text-align: center;">
+                        <button id="submitAnnouncementBtn" name="submitAnnouncementBtn" value="submitAnnouncementBtn" style="background-color: #333333; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">Submit</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

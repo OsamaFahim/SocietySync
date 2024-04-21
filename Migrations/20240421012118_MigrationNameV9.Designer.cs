@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SocietySync.DBcontext;
 
@@ -11,9 +12,11 @@ using SocietySync.DBcontext;
 namespace SocietySync.Migrations
 {
     [DbContext(typeof(SocietySyncContext))]
-    partial class SocietySyncContextModelSnapshot : ModelSnapshot
+    [Migration("20240421012118_MigrationNameV9")]
+    partial class MigrationNameV9
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -66,6 +69,7 @@ namespace SocietySync.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PostedByUserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("UserType")
@@ -172,7 +176,9 @@ namespace SocietySync.Migrations
                 {
                     b.HasOne("SocietySync.Models.User", "PostedByUser")
                         .WithMany("Announcements")
-                        .HasForeignKey("PostedByUserId");
+                        .HasForeignKey("PostedByUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("PostedByUser");
                 });

@@ -24,4 +24,5 @@ public class Society
     public bool Status { get; set; } = false;
 
     public virtual ICollection<SocietyMembership>? Memberships { get; set; }
+    public virtual ICollection<Event>? Events { get; set; }
 }

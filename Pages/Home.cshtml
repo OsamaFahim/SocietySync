@@ -40,63 +40,14 @@
             <button style="position: absolute; top: 0px; left: 830px;" class="btn" onclick="#"><span>Log Out</span></button>
         </div>
         <div id="content">
-            <div class="event" style="width: 700px; height: 200px; top: 220px; left: 782px; transform: translate(-50%, -50%); position: fixed; border: 2px solid;">
+            <div class="event" style="width: 700px; height: 385px; top: 220px; left: 782px; transform: translate(-50%, -50%); position: fixed; border: 4px solid; border-radius: 10px;margin-top:150px">
                 <div style="position: absolute; width: 100%; height: 40px; background-color: #333333; top: 0;">
                     <h3 style="color: white; font-weight: bold; text-align: center; margin-top: 7px;">Event</h3>
+                    <form method="get">
+                        <textarea style="width:650px;height:305px;margin-top:5px;margin-left:-0px;background-color:lightgrey" id="society-data" readonly>@Html.Raw(ViewData["Events_View"]) </textarea>
+                    </form>
                 </div>
-                <div style="margin-top: 30px; padding: 20px;">
-                    <textarea id="announcementText1" style="width: calc(100% - 40px); height: 70px; margin-bottom: 10px; padding: 10px; border-radius: 5px; border: 1px solid #ccc;" readonly></textarea>
-                    <div style="text-align: center;">
-                        <button class="view-btn" onclick="openPopup('popup1')" style="background-color: #333333; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">View</button>
-                    </div>
-                </div>
-            </div>
-            <div class="event" style="width: 700px; height: 200px; top: 450px; left: 782px; transform: translate(-50%, -50%); position: fixed;border: 2px solid;">
-                <div style="position: absolute; width: 100%; height: 40px; background-color: #333333; top: 0;">
-                    <h3 style="color: white; font-weight: bold; text-align: center; margin-top: 7px;">Event</h3>
-                </div>
-                <div style="margin-top: 30px; padding: 20px;">
-                    <textarea id="announcementText2" style="width: calc(100% - 40px); height: 70px; margin-bottom: 10px; padding: 10px; border-radius: 5px; border: 1px solid #ccc;" readonly></textarea>
-                    <div style="text-align: center;">
-                        <button class="view-btn" onclick="openPopup('popup2')" style=" background-color: #333333; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">View</button>
-                    </div>
-                </div>
-            </div>
+            </div>    
         </div>
-        <div id="popup1" class="popup-event" style="background-color:lightgray;position:absolute;top:300px;left:400px;" >
-            <div class="popup-content">
-                <h3>Event</h3>
-                <span class="close" onclick="closePopup('popup1')">&times;</span>
-                <textarea id="eventText1" placeholder="Event details" style="margin-top: 10px;" readonly></textarea>
-                <div style="text-align: center;">
-                    <button style="background-color: #333333; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">Apply</button>
-                </div>
-            </div>
-        </div>
-        <div id="popup2" class="popup-event" style="background-color:lightgray;position:absolute;top:300px;left:400px;">
-            <div class="popup-content">
-                <h3>Event</h3>
-                <span class="close" onclick="closePopup('popup2')">&times;</span>
-                <textarea id="eventText2" placeholder="Event details" style="margin-top: 10px;" readonly></textarea>
-                <div style="text-align: center;">
-                    <button style="background-color: #333333; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">Apply</button>
-                </div>
-            </div>
-        </div>
-        <button style="position: absolute; bottom: 60px; left: 400px;" class="scroll-btn">Up</button>
-        <button style="position: absolute; bottom: 60px; left: 470px;" class="scroll-btn">Down</button>
-
-        <script>
-            // Function to show popup
-            function openPopup(id) {
-                document.getElementById(id).style.display = "block";
-            }
-
-            // Function to hide popup
-            function closePopup(id) {
-                document.getElementById(id).style.display = "none";
-            }
-        </script>
-    </div>
 </body>
 </html>

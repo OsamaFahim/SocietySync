@@ -20,12 +20,33 @@
     </div>
     <div id="left">
         <div class="profile-box">
-            <div style="background-color:darkorange;height:40px;margin-left:-10px;margin-top:-27px;width:220px;border-color:white;border-radius:4px;">  <h3 style="text-align:center;color:white;font-weight:bold;padding-top:10px;">My Information</h3></div>
-            <div class="strip"><p style="text-align:center;padding-top:5px;" id="Name"> @ViewData["Name"]</p> </div>
-            <div class="strip"> <p style="text-align:center;padding-top:5px;" id="username" >@ViewData["Username"]</p></div>
-            <button id="updateProfileBtn">Update Profile</button>
+            <div style="background-color: darkorange; height: 40px; margin-left: -10px; margin-top: -27px; width: 220px; border-color: white; border-radius: 4px;">
+                <h3 style="text-align: center; color: white; font-weight: bold; padding-top: 10px;">My Information</h3>
+            </div>
+            <form id="nameForm" method="post" style="display: inline;">
+                <div class="strip" style="margin-top:10px;">
+                    <input type="text" id="Name" name="Name" style="text-align:center;padding-top:5px;background-color:lightgray;margin-left:0px;margin-top:0px;border:none;width:195px;height:25px;border-radius:5px;" value="@ViewData["Name"]">
+                </div>
+                <div class="strip">
+                    <p style="text-align: center; padding-top: 5px;" id="username">@ViewData["Username"]</p>
+                </div>
+                <button id="updateProfileBtn" name="updateProfileBtn" value="updateProfileBtn">Update Profile</button>
+            </form>
         </div>
     </div>
+
+
+    <script>
+        function makeEditable() {
+            var nameElement = document.getElementById('Name');
+            if (nameElement.contentEditable === 'false' || nameElement.contentEditable === 'inherit') {
+                nameElement.contentEditable = 'true';
+                nameElement.focus();
+            } else {
+                nameElement.contentEditable = 'false'; 
+            }
+        }
+    </script>
 
     <div id="center">
         <div class="tabs_bar">

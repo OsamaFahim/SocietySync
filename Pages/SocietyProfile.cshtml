@@ -107,21 +107,21 @@
         </div>
     </div>
 
-
-
-    <div id="makeAnnouncementPopup" class="popup-announcement" style="display: none;">
+    <div id="makeAnnouncementPopup" class="popup-announcement" @if (ViewData["makeAnnouncementPopup"] != null && (bool)ViewData["makeAnnouncementPopup"]){<text>style="display: block;"</text>} style="display: none;">
         <div class="popup-content" style="width: 500px; height: 400px; top: 392px; left: 752px; transform: translate(-50%, -50%); position: fixed;">
             <div style="position:absolute;width:100%;height:40px;background-color:#333333;top:0;">
                 <h3 style="color:white;font-weight:bold;text-align:center;margin-top:7px;">Make Announcement</h3>
             </div>
             <span class="close" id="closeMakeAnnouncementPopup" style="position: absolute; top: 0px; right: 0px; font-size: 20px; cursor: pointer; background-color: darkred; color: white; padding: 8px 7px; ">&times;</span>
             <div style="margin-top: 50px; padding: 20px;">
-                <label for="announcementText" style="font-weight: bold;">Announcement:</label><br>
-                <textarea id="announcementText" style="width: calc(100% - 40px); height: 150px; margin-bottom: 10px; padding: 10px; border-radius: 5px; border: 1px solid #ccc;"></textarea>
+                <form method ="post">
+                    <label for="announcementText" style="font-weight: bold;">Announcement:</label><br>
+                    <textarea name="announcementText" id="announcementText" style="width: calc(100% - 40px); height: 150px; margin-bottom: 10px; padding: 10px; border-radius: 5px; border: 1px solid #ccc;"></textarea>
 
-                <div style="text-align: center;">
-                    <button id="submitAnnouncementBtn" style="background-color: #333333; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">Submit</button>
-                </div>
+                    <div style="text-align: center;">
+                        <button type="submit" name="submitAnnouncementBtn" id="submitAnnouncementBtn" value="" style="background-color: #333333; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">Submit</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -146,13 +146,13 @@
                     </select>
                     <button type="submit" name="viewRequestDetailsBtn" value = "viewRequestDetailsBtn" style="background-color: #333333; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;position:absolute;top:140px;left:40px;">View Detailed Info</button>
                     <button type="submit" name="acceptRequestBtn" value = "acceptRequestBtn" style="background-color: #333333; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;position:absolute;top:200px;left:25px">Accept</button>
-                    <button button type="submit" name="RejectRequestBtn" value = "RejectRequestBtn" style="background-color: #333333; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;margin-top:68px;margin-left:100px;">Reject</button>
+                    <button type="submit" name="RejectRequestBtn" value = "RejectRequestBtn" style="background-color: #333333; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;margin-top:68px;margin-left:100px;">Reject</button>
                 </form>
             </div>
         </div>
     </div>
 
-    <div id="organizeEventPopup" class="popup-announcement" style="display: none;">
+    <div id="organizeEventPopup" class="popup-announcement" @if (ViewData["OrganizeEventPopup"] != null && (bool)ViewData["OrganizeEventPopup"]){<text>style="display: block;"</text>} style="display: none;">
         <div class="popup-content" style="width: 500px; height: 400px; top: 392px; left: 752px; transform: translate(-50%, -50%); position: fixed;">
             <div style="position:absolute;width:100%;height:40px;background-color:#333333;top:0;">
                 <h3 style="color:white;font-weight:bold;text-align:center;margin-top:7px;">Organize Event</h3>
@@ -160,25 +160,28 @@
             <span class="close" id="closeOrganizeEventPopup" style="position: absolute; top: 0px; right: 0px; font-size: 20px; cursor: pointer; background-color: darkred; color: white; padding: 8px 7px; ">&times;</span>
             <div style="margin-top: 50px; padding: 20px;">
 
-                <label for="eventName" style="font-weight: bold;">Event Name:</label><br>
-                <input type="text" id="eventName" name="eventName" style="width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px;"><br>
+                <form method="post">
+                    <span asp-validation-for="EventDate" class="text-danger" style="color: darkred;"></span><br />
+                    <label for="eventName" name = "eventName" style="font-weight: bold;">Event Name:</label><br>
+                    <input type="text" id="eventName" name="eventName" style="width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px;"><br>
 
-                <label for="eventType" style="font-weight: bold;">Event Type:</label>
-                <label for="eventDate" style="font-weight: bold; margin-left: 20px;">Event Date:</label><br>
-                <select id="eventType" name="eventType" style="width: 45%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; display: inline-block;">
-                    <option value="social">Social</option>
-                    <option value="private">Private</option>
-                    <option value="poll">Poll</option>
+                    <label for="eventType" style="font-weight: bold;">Event Type:</label>
+                    <label for="eventDate" style="font-weight: bold; margin-left: 20px;">                Event Date:</label><br>
+                    <select id="eventType" name="eventType" style="width: 45%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; display: inline-block;">
+                        <option value="social">Social</option>
+                        <option value="private">Private</option>
+                        <option value="poll">Poll</option>
 
-                </select>
-                <input type="date" id="eventDate" name="eventDate" style="width: 45%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; display: inline-block;"><br>
+                    </select>
+                    <input type="date" id="eventDate" name="eventDate" asp-for="EventDate" value="@DateTime.Today.ToString("yyyy-dd-MM")" style="width: 45%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; display: inline-block;"><br>
 
-                <label for="eventDescription" style="font-weight: bold;">Event Description:</label><br>
-                <textarea id="eventDescription" style="width: calc(100% - 40px); height: 100px; margin-bottom: 10px; padding: 10px; border-radius: 5px; border: 1px solid #ccc;"></textarea>
+                    <label for="eventDescription" style="font-weight: bold;">Event Description:</label><br>
+                    <textarea id="eventDescription" name = "eventDescription" style="width: calc(100% - 40px); height: 100px; margin-bottom: 10px; padding: 10px; border-radius: 5px; border: 1px solid #ccc;"></textarea>
 
-                <div style="text-align: center;">
-                    <button id="submitEventBtn" style="background-color: #333333; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">Organize Event</button>
-                </div>
+                    <div style="text-align: center;">
+                        <button id="submitEventBtn" name="submitEventBtn" value="submitEventBtn" style="background-color: #333333; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">Organize Event</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
