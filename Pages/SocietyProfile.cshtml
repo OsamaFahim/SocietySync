@@ -186,89 +186,15 @@
         </div>
     </div>
     <script>
-        // organize event
-        var organizeEventBtn = document.getElementById("organizeEventBtn");
-        var organizeEventPopup = document.getElementById("organizeEventPopup");
-        var closeOrganizeEventPopup = document.getElementById("closeOrganizeEventPopup");
-
-        organizeEventBtn.onclick = function () {
-            organizeEventPopup.style.display = "block";
-        }
-
-        closeOrganizeEventPopup.onclick = function () {
-            organizeEventPopup.style.display = "none";
-        }
-
-        // Close popup when clicking outside
-        window.onclick = function (event) {
-            if (event.target == organizeEventPopup) {
-                organizeEventPopup.style.display = "none";
-            }
-            // Add similar conditions for other popups if needed
-        }
-
-        // Optionally, add functionality to handle event organization
-        var submitEventBtn = document.getElementById("submitEventBtn");
-
-        submitEventBtn.onclick = function () {
-            // Implement event organization functionality
-            alert("Event organized.");
-        }
-        // Manage Membership Requests
-        var manageMembershipRequestsBtn = document.getElementById("manageMembershipRequestsBtn");
-        var manageMembershipRequestsPopup = document.getElementById("manageMembershipRequestsPopup");
-        var closeManageMembershipRequestsPopup = document.getElementById("closeManageMembershipRequestsPopup");
-
-        manageMembershipRequestsBtn.onclick = function () {
-            manageMembershipRequestsPopup.style.display = "block";
-        }
-
-        closeManageMembershipRequestsPopup.onclick = function () {
-            manageMembershipRequestsPopup.style.display = "none";
-        }
-        // Manage Members
-        var manageMembersBtn = document.getElementById("manageMembersBtn");
-        var manageMembersPopup = document.getElementById("manageMembersPopup");
-        var closeManageMembersPopup = document.getElementById("closeManageMembersPopup");
-
-        manageMembersBtn.onclick = function () {
-            manageMembersPopup.style.display = "block";
-        }
-
-        closeManageMembersPopup.onclick = function () {
-            manageMembersPopup.style.display = "none";
-        }
-
-        // Make Announcement
-        var makeAnnouncementBtn = document.getElementById("makeAnnouncementBtn");
-        var makeAnnouncementPopup = document.getElementById("makeAnnouncementPopup");
-        var closeMakeAnnouncementPopup = document.getElementById("closeMakeAnnouncementPopup");
-
-        makeAnnouncementBtn.onclick = function () {
-            makeAnnouncementPopup.style.display = "block";
-        }
-
-        closeMakeAnnouncementPopup.onclick = function () {
-            makeAnnouncementPopup.style.display = "none";
-        }
-
-        // Manage Membership Requests
-        var manageMembershipRequestsBtn = document.getElementById("manageMembershipRequestsBtn");
-        var manageMembershipRequestsPopup = document.getElementById("manageMembershipRequestsPopup");
-        var closeManageMembershipRequestsPopup = document.getElementById("closeManageMembershipRequestsPopup");
-
-        manageMembershipRequestsBtn.onclick = function () {
-            manageMembershipRequestsPopup.style.display = "block";
-        }
-
-        closeManageMembershipRequestsPopup.onclick = function () {
-            manageMembershipRequestsPopup.style.display = "none";
-        }
-
         // Close popups when clicking outside
         window.onclick = function (event) {
-            if (event.target == manageMembersPopup) {
-                manageMembersPopup.style.display = "none";
+            var organizeEventPopup = document.getElementById("organizeEventPopup");
+            var makeAnnouncementPopup = document.getElementById("makeAnnouncementPopup");
+            var manageMembershipRequestsPopup = document.getElementById("manageMembershipRequestsPopup");
+            var manageMembersPopup = document.getElementById("manageMembersPopup");
+
+            if (event.target == organizeEventPopup) {
+                organizeEventPopup.style.display = "none";
             }
             if (event.target == makeAnnouncementPopup) {
                 makeAnnouncementPopup.style.display = "none";
@@ -276,21 +202,37 @@
             if (event.target == manageMembershipRequestsPopup) {
                 manageMembershipRequestsPopup.style.display = "none";
             }
+            if (event.target == manageMembersPopup) {
+                manageMembersPopup.style.display = "none";
+            }
         }
 
-        // Accept and Reject Request functionality
-        var acceptRequestBtn = document.getElementById("acceptRequestBtn");
-        var rejectRequestBtn = document.getElementById("rejectRequestBtn");
+        // Optionally, you can also handle the close buttons individually
+        var closeOrganizeEventPopup = document.getElementById("closeOrganizeEventPopup");
+        var closeMakeAnnouncementPopup = document.getElementById("closeMakeAnnouncementPopup");
+        var closeManageMembershipRequestsPopup = document.getElementById("closeManageMembershipRequestsPopup");
+        var closeManageMembersPopup = document.getElementById("closeManageMembersPopup");
 
-        acceptRequestBtn.onclick = function () {
-            // Implement accept functionality
-            alert("Request accepted.");
+        closeOrganizeEventPopup.onclick = function () {
+            var organizeEventPopup = document.getElementById("organizeEventPopup");
+            organizeEventPopup.style.display = "none";
         }
 
-        rejectRequestBtn.onclick = function () {
-            // Implement reject functionality
-            alert("Request rejected.");
+        closeMakeAnnouncementPopup.onclick = function () {
+            var makeAnnouncementPopup = document.getElementById("makeAnnouncementPopup");
+            makeAnnouncementPopup.style.display = "none";
+        }
+
+        closeManageMembershipRequestsPopup.onclick = function () {
+            var manageMembershipRequestsPopup = document.getElementById("manageMembershipRequestsPopup");
+            manageMembershipRequestsPopup.style.display = "none";
+        }
+
+        closeManageMembersPopup.onclick = function () {
+            var manageMembersPopup = document.getElementById("manageMembersPopup");
+            manageMembersPopup.style.display = "none";
         }
     </script>
+
 </body>
 </html>

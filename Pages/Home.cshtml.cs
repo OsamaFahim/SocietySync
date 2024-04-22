@@ -3,11 +3,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using SocietySync.DBcontext;
 using SocietySync.Models;
+using System.Linq;
 
 namespace SocietySync.Pages
 {
     public class HomeModel : PageModel
     {
+
+        public List<Announcement> notifications;
         public void OnGet()
         {
             var context = UserSession.Instance.GetSocietySyncContext();
@@ -28,5 +31,19 @@ namespace SocietySync.Pages
 
             ViewData["Events_View"] = EventData;
         }
+
+        public void notifications_ButtonClick()
+        {
+            
+        }
+
+        public async void onPost()
+        {
+            if (Request.Form.TryGetValue("Notifications_dropdown", out var Notifications_dropdown))
+            {
+                notifications_ButtonClick();
+            }
+        }
     }
+
 }

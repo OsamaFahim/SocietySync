@@ -1,11 +1,16 @@
 using Azure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using SocietySync.Models;
+using SocietySync.DBcontext;
+using System.Net.Sockets;
 
 namespace SocietySync.Pages
 {
     public class UserProfileModel : PageModel
     {
+        public List<Announcement> notifications;
+
         void populateData()
         {
             var context = UserSession.Instance.GetSocietySyncContext();
@@ -41,8 +46,9 @@ namespace SocietySync.Pages
             {
                 "RegisterSociety" => RedirectToPage("/SocietyRegisteration"),
                 "ApplyMembership" => RedirectToPage("/ApplyMembership"),
-                _=> RedirectToPage("/Index"),
-            };
+                "Home" => RedirectToPage("/Home"),
+                "Logout" => RedirectToPage("/Index"),
+            }; 
         }
 
 

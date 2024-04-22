@@ -13,6 +13,8 @@ namespace SocietySync.Models
 
         public string? PostedByUserId { get; set; } // Foreign Key
 
+        public string? PostedBySocietyName { get; set; } //Foreign Key
+
         [Required]
         public string Content { get; set; }
 
@@ -21,5 +23,7 @@ namespace SocietySync.Models
 
         // Navigation properties
         public virtual User PostedByUser { get; set; }
+
+        public virtual Society PostedBySociety { get; set; }
     }
 }

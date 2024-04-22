@@ -123,9 +123,11 @@ namespace SocietySync.Pages
                 switch (Upper_Menu)
                 {
                     case "Home":
-                       return RedirectToPage("/Index");
+                       return RedirectToPage("/UserProfile");
                     case "Events":
                         return RedirectToPage("/Home");
+                    case "Logout":
+                        return RedirectToPage("/Index");
                 }
             }
 
