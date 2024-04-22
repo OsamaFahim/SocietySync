@@ -25,4 +25,6 @@ public class Society
 
     public virtual ICollection<SocietyMembership>? Memberships { get; set; }
     public virtual ICollection<Event>? Events { get; set; }
+
+    public virtual ICollection<Announcement>? Announcements { get; set; }
 }

@@ -37,14 +37,14 @@
     <div id="center">
         <div class="tabs_bar">
             <button style="position:absolute;top:0px;left:5px;" class="btn" onclick="#"><span>Home</span></button>
-            <button style="position:absolute;top:0px;left:830px;" class="btn" onclick="#"><span>Log Out</span></button>
+            <button style="position:absolute;top:0px;left:800px;" class="btn" onclick="#"><span>Log Out</span></button>
         </div>
         <div id="panel">
             <span class="user-count-label">Total User Count:</span>
             <input type="text" class="user-count-field" name="user_count" value="@Model.UserCount" readonly>
         </div>
         <div id="content" style="position:absolute;top:100px;left:100px;width:500px; height:400px;border-style:solid; border-color:black;border-width:2px;border-radius:5px;">
-            <textarea style="width:485px;height:385px;margin-top:-0px;margin-left:0px;" id="society_data">@ViewData["Selected_SocietyData"]</textarea>
+            <textarea style="width:485px;height:385px;margin-top:-0px;margin-left:0px;" id="society_data">@ViewData["Selected_Data"]</textarea>
         </div>
     </div>
 
@@ -63,8 +63,20 @@
             <span class="close" id="closeManageMembersPopup" style="position: absolute; top: 0px; right: 0px; font-size: 20px; cursor: pointer; background-color: darkred; color: white; padding: 8px 7px; ">&times;</span>
             <div style="margin-top: 50px; padding: 20px;">
                 <label for="memberId" style="font-weight: bold;margin-left:-3px;">User ID:</label><br>
-                <input type="text" id="memberId" name="memberId" style="width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px;margin-left:-3px;">
-                <button id="removeMemberBtn" style="background-color: #333333; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; margin-left: 20px;position:absolute;top:200px;">Remove Member</button>
+                <form method="post">
+                   <select id="RemoveUsers_Select" name="RemoveUsers_Select" style="width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px;">
+                   @if (Model.Remove_Users != null)
+                   {
+                        @foreach (var User in Model.Remove_Users)
+                        {
+                            <option value="@User.RollNum">@User.RollNum</option>
+                        }
+                   }
+                   </select>
+                    <button type="submit" name="RemoveMember_btn" value="RemoveMember_btn" style="background-color: #333333; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; margin-top: 68px; margin-left: 30px;">
+                            Remove 
+                    </button>
+                </form>
                 <p id="errorLabel" style="color: red; margin-top: 10px; display: none;">Error message here</p>
             </div>
         </div>
@@ -85,8 +97,20 @@
             <span class="close" id="closeManageSocietiesPopup" style="position: absolute; top: 0px; right: 0px; font-size: 20px; cursor: pointer; background-color: darkred; color: white; padding: 8px 7px; ">&times;</span>
             <div style="margin-top: 50px; padding: 20px;">
                 <label for="societyId" style="font-weight: bold;margin-left:-3px;">Society ID:</label><br>
-                <input type="text" id="societyId" name="societyId" style="width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px;margin-left:-3px;">
-                <button id="removeSocietyBtn" style="background-color: #333333; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; margin-left: 20px;position:absolute;top:200px;">Remove Society</button>
+                <form method="post">    
+                      <select id="RemoveSocieties_Select" name="RemoveSocieties_Select" style="width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px;">
+                            @if (Model.Remove_Societies != null)
+                            {
+                                @foreach (var User in Model.Remove_Societies)
+                                {
+                                     <option value="@User.Name">@User.Name</option>
+                                }
+                            }
+                        </select>          
+                        <button type="submit" name="RemoveSociety_btn" value="RemoveSociety_btn" style="background-color: #333333; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; margin-top: 68px; margin-left: 30px;">
+                            Remove
+                        </button>
+                </form>
                 <p id="societyErrorLabel" style="color: red; margin-top: 10px; display: none;">Error message here</p>
             </div>
         </div>
@@ -104,7 +128,7 @@
             <div style="margin-top: 50px; padding: 20px;">
                 <label for="pendingRequests" style="font-weight: bold;">Pending Requests:</label><br>
                 <form method="post" id="societyForm">
-                    <select id="pendingRequests" name="pendingRequests" asp-for="pendingRequests" style="width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px;">
+                    <select id="pendingRequests" name="pendingRequests" style="width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px;">
                         @if (Model.Pending_Societies != null)
                         {
                             @foreach (var society in Model.Pending_Societies)
@@ -157,10 +181,11 @@
     <script>
         // Manage Members
         var manageMembersBtn = document.getElementById("manageMembersBtn");
-        var manageMembersPopup = document.getElementById("manageMembersPopup");
+        var manageMembersPopup = document.getElementById("RemoveMembersPopup");
         var closeManageMembersPopup = document.getElementById("closeManageMembersPopup");
 
-        manageMembersBtn.onclick = function () {
+        manageMembersBtn.onclick = function (event) {
+            event.stopPropagation(); // Prevent event from propagating to the window
             manageMembersPopup.style.display = "block";
         }
 
@@ -168,18 +193,13 @@
             manageMembersPopup.style.display = "none";
         }
 
-        window.onclick = function (event) {
-            if (event.target == manageMembersPopup) {
-                manageMembersPopup.style.display = "none";
-            }
-        }
-
         // Manage Societies
         var manageSocietiesBtn = document.getElementById("manageSocietiesBtn");
-        var manageSocietiesPopup = document.getElementById("manageSocietiesPopup");
+        var manageSocietiesPopup = document.getElementById("RemoveSocietiesPopup");
         var closeManageSocietiesPopup = document.getElementById("closeManageSocietiesPopup");
 
-        manageSocietiesBtn.onclick = function () {
+        manageSocietiesBtn.onclick = function (event) {
+            event.stopPropagation();
             manageSocietiesPopup.style.display = "block";
         }
 
@@ -187,19 +207,13 @@
             manageSocietiesPopup.style.display = "none";
         }
 
-        window.onclick = function (event) {
-            if (event.target == manageSocietiesPopup) {
-                manageSocietiesPopup.style.display = "none";
-            }
-        }
-
-
         // Manage Registration Requests
         var manageRegistrationRequestsBtn = document.getElementById("manageRegistrationRequestsBtn");
         var manageRegistrationRequestsPopup = document.getElementById("manageRegistrationRequestsPopup");
         var closeManageRegistrationRequestsPopup = document.getElementById("closeManageRegistrationRequestsPopup");
 
-        manageRegistrationRequestsBtn.onclick = function () {
+        manageRegistrationRequestsBtn.onclick = function (event) {
+            event.stopPropagation();
             manageRegistrationRequestsPopup.style.display = "block";
         }
 
@@ -207,37 +221,13 @@
             manageRegistrationRequestsPopup.style.display = "none";
         }
 
-        window.onclick = function (event) {
-            if (event.target == manageRegistrationRequestsPopup) {
-                manageRegistrationRequestsPopup.style.display = "none";
-            }
-        }
-
-        var acceptRequestBtn = document.getElementById("acceptRequestBtn");
-        var rejectRequestBtn = document.getElementById("rejectRequestBtn");
-
-        acceptRequestBtn.onclick = function () {
-            // Implement accept functionality
-            alert("Request accepted.");
-        }
-
-        rejectRequestBtn.onclick = function () {
-            // Implement reject functionality
-            alert("Request rejected.");
-        }
-
-        function getCurrentTimestamp() {
-            var now = new Date();
-            var timestamp = now.toLocaleString(); // Customize timestamp format as needed
-            return timestamp;
-        }
-
         // Make Announcement
         var makeAnnouncementBtn = document.getElementById("makeAnnouncementBtn");
         var makeAnnouncementPopup = document.getElementById("makeAnnouncementPopup");
         var closeMakeAnnouncementPopup = document.getElementById("closeMakeAnnouncementPopup");
 
-        makeAnnouncementBtn.onclick = function () {
+        makeAnnouncementBtn.onclick = function (event) {
+            event.stopPropagation();
             makeAnnouncementPopup.style.display = "block";
         }
 
@@ -245,22 +235,22 @@
             makeAnnouncementPopup.style.display = "none";
         }
 
-        window.onclick = function (event) {
-            if (event.target == makeAnnouncementPopup) {
-                makeAnnouncementPopup.style.display = "none";
-            }
-        }
-
         // Event listener for submit button
-        document.getElementById("submitAnnouncementBtn").addEventListener("click", function () {
-            var announcementText = document.getElementById("announcementText").value;
-            var timestamp = getCurrentTimestamp();
-            var announcementWithTimestamp = announcementText + "\n\n" + "Timestamp: " + timestamp;
+        //document.getElementById("submitAnnouncementBtn").addEventListener("click", function (event) {
+        //    event.preventDefault(); // Prevent default form submission
+        //    var announcementText = document.getElementById("announcementText").value;
+        //    var timestamp = getCurrentTimestamp();
+        //    var announcementWithTimestamp = announcementText + "\n\n" + "Timestamp: " + timestamp;
+        //    console.log(announcementWithTimestamp);
+        //});
 
-            // Display or store the announcement with timestamp as needed
-            console.log(announcementWithTimestamp); // For demonstration, print to console
-        });
+        function getCurrentTimestamp() {
+            var now = new Date();
+            var timestamp = now.toLocaleString();
+            return timestamp;
+        }
     </script>
+
 
 </body>
 </html>

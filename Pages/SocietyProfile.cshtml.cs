@@ -230,11 +230,14 @@ namespace SocietySync.Pages
         {
             var context = UserSession.Instance.GetSocietySyncContext();
             string content = Request.Form["announcementText"];
+            string societyName = Request.Query["stringValue"];
             var newAnnouncement = new Announcement
             {
                 PostedByUser = context.Users.FirstOrDefault(u => u.RollNum == UserSession.Instance.LoggedInRollNumber),
                 Content = content,
-                UserType = "President"
+                UserType = "President",
+                PostedBySocietyName = societyName,
+                PostedBySociety = context.Societies.FirstOrDefault(s => s.Name == societyName)
             };
             context.Announcements.Add(newAnnouncement);
             context.SaveChanges();

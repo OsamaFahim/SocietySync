@@ -48,24 +48,30 @@
         }
     </script>
 
-    <div id="center">
+    <div style="background-color:darkgray;"id="center">
         <div class="tabs_bar">
             <form method="post">
                 <button style="position:absolute;top:0px;left:5px;" class="btn" type="submit" name="page" value="Home"><span>Home</span></button>
                 <button style="position:absolute;top:0px;left:150px;" class="btn" type="submit" name="page" value="RegisterSociety"><span>Register a Society</span></button>
                 <button style="position:absolute;top:0px;left:370px;" class="btn" type="submit" name="page" value="ApplyMembership"><span>Apply Membership or Manage Societies</span></button>
-            </form>
-            <div id="notifications">
-                <!-- Dropdown notifications tab -->
-                <div style="position:absolute;top:4px;left:760px;" class="dropdown">
-                    <button class="dropbtn">Notifications</button>
-                    <div style="background-color:gray;border-radius:5px;margin-left:5px;" class="dropdown-content">
-                        <a id="notification_data" href="#">Notification 1</a>
-                        <a href="#">Notification 2</a>
-                        <a href="#">Notification 3</a>
-                    </div>
+                <button style="position:absolute;top:0px;left:830px;" class="btn" type="submit" name="page" value="Logout"><span>Logout</span></button>
+                <div id="notifications">
+                    <!-- Dropdown notifications tab -->
+                    <select id="pendingRequests" name="pendingRequests" style="width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px;">
+                        @if (Model.notifications != null)
+                        {
+                            foreach (var notification in Model.notifications)
+                            {
+                                <option value="@($"{notification.Content} - {notification.UserType} - {notification.PostedBySocietyName}")">@($"{notification.Content} - {notification.UserType} - {notification.PostedBySocietyName}")</option>
+                            }
+                        }
+                        else
+                        {
+                            <option value="">No notifications</option>
+                        }
+                    </select>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 

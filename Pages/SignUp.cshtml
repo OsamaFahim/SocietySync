@@ -37,13 +37,16 @@
                 </div>
                 <div>
                     <input type="password" id="password" name="Password_input" asp-for="Password_input" required style="position: absolute; top: 150px; left: 0; margin-top: 10px; margin-left: 190px;">
+                    <label style=" position: absolute; top: 0px; left: 0px; font-weight: bold; margin-left: 30px; margin-top: 165px; font-size: 24px; color: darkorange;" for="name"><b>Password:</b></label>
                     <span asp-validation-for="Password_input" class="text-danger" style="color: red; font-weight: bold;"></span>
+                   
                     <input type="checkbox" id="ShowPasswordCheckBox" name="PassCheckbox_Input" style="position: absolute; top: 192px; left: 0; margin-top: 10px; margin-left: 190px;" onclick="togglePasswordVisibility('password');">
                     <label style="position: absolute; top: 200px; left: 220px;" for="ShowPasswordCheckBox">Show Password</label>
                 </div>
 
                 <div>
                     <input type="password" id="confirmPassword" name="ConfirmPassword_input" asp-for="ConfirmPassword_input" required style="position: absolute; top: 215px; left: 0; margin-top: 10px; margin-left: 190px;">
+                    <label style=" position: absolute; top: 0px; left: 0px; font-weight: bold; margin-left: 30px; margin-top: 230px; font-size: 19px; color: darkorange;" for="name"><b>Confirm Password:</b></label>
                     <span asp-validation-for="ConfirmPassword_input" class="text-danger" style="color: red; font-weight: bold;"></span>
                     <input type="checkbox" id="ShowConfirmPasswordCheckBox" style="position: absolute; top: 257px; left: 0; margin-top: 10px; margin-left: 190px;" onclick="togglePasswordVisibility('confirmPassword');">
                     <label style="position: absolute; top: 265px; left: 220px;" for="ShowConfirmPasswordCheckBox">Show Password</label>
