@@ -46,7 +46,7 @@ namespace SocietySync.Pages
             {
                 "RegisterSociety" => RedirectToPage("/SocietyRegisteration"),
                 "ApplyMembership" => RedirectToPage("/ApplyMembership"),
-                "Home" => RedirectToPage("/Home"),
+                "Home" => RedirectToPage("/UserProfile"),
                 "Logout" => RedirectToPage("/Index"),
             }; 
         }

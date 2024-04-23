@@ -8,13 +8,15 @@ namespace SocietySync.Pages
 {
     public class AdminControllerModel : PageModel
     {
+        [BindProperty]
+        public string announcementText{ get; set; }
+
         public long UserCount { get; set; }
         public List<Society> Pending_Societies { get; set; }
 
         public List<User> Remove_Users { get; set; }
 
         public List<Society> Remove_Societies { get; set; }
-
 
         public void update_Users_count()
         {
@@ -71,8 +73,14 @@ namespace SocietySync.Pages
 
         public void submitAnnoucment_ButtonClick()
         {
-            var context = UserSession.Instance.GetSocietySyncContext();
+            ModelState.Clear();
             string content = Request.Form["announcementText"];
+            if (string.IsNullOrEmpty(content)) {
+                MakeAnnoucement_ButtonClick();
+                return; 
+            }
+
+            var context = UserSession.Instance.GetSocietySyncContext();
             var newAnnouncement = new Announcement
             {
                 Content = content,
@@ -80,7 +88,7 @@ namespace SocietySync.Pages
             };
             context.Announcements.Add(newAnnouncement);
             context.SaveChanges();
-            ViewData["makeAnnouncementPopup"] = true;
+            MakeAnnoucement_ButtonClick();
         }
 
         public void ViewUsers_ButtonClick()
@@ -131,7 +139,10 @@ namespace SocietySync.Pages
             RemoveSocieties_ButtonClick();
 
             string selected_society_name = Request.Form["RemoveSocieties_Select"];
-            removeSociety_DB(selected_society_name);
+            if (!string.IsNullOrEmpty(selected_society_name))
+            {
+                removeSociety_DB(selected_society_name);
+            }
 
             RemoveSocieties_ButtonClick();
         }
@@ -140,23 +151,25 @@ namespace SocietySync.Pages
         {
             var context = UserSession.Instance.GetSocietySyncContext();
             string selected_user_RollNum = Request.Form["RemoveUsers_Select"];
-
-            List<Society> societies = context.Societies.Where(s => s.PresidentRollNum == selected_user_RollNum).ToList();
-            foreach (var society in societies)
+            if (!string.IsNullOrEmpty(selected_user_RollNum))
             {
-                string society_name = society.Name;
-                removeSociety_DB(society_name);
-            }
+                List<Society> societies = context.Societies.Where(s => s.PresidentRollNum == selected_user_RollNum).ToList();
+                foreach (var society in societies)
+                {
+                    string society_name = society.Name;
+                    removeSociety_DB(society_name);
+                }
 
-            var user = context.Users.FirstOrDefault(u => u.RollNum == selected_user_RollNum);
-            context.Users.Remove(user);
-            context.Announcements.RemoveRange(context.Announcements.Where(a => a.PostedByUserId == user.RollNum));
-            context.SaveChanges();
+                var user = context.Users.FirstOrDefault(u => u.RollNum == selected_user_RollNum);
+                context.Users.Remove(user);
+                context.Announcements.RemoveRange(context.Announcements.Where(a => a.PostedByUserId == user.RollNum));
+                context.SaveChanges();
+            }
 
             RemoveUsers_ButtonClick();
         }
 
-            public async Task<IActionResult> OnPost()
+        public async Task<IActionResult> OnPost()
         {
             var context = UserSession.Instance.GetSocietySyncContext();
 

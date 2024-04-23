@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.IdentityModel.Tokens;
 using SocietySync.DBcontext;
 using SocietySync.Models;
 using System.Globalization;
@@ -9,7 +10,7 @@ namespace SocietySync.Pages
     public class SocietyProfileModel : PageModel
     {
         [BindProperty]
-        public DateTime EventDate { get; set; }
+        public string announcementText { get; set; }
 
         public List<User> pending_Users; 
         public void OnGet()
@@ -93,8 +94,11 @@ namespace SocietySync.Pages
 
             var context = UserSession.Instance.GetSocietySyncContext();
             var membership = findMemeber(context);
-            membership.Role = "Accepted";
-            context.SaveChanges();
+            if (membership != null)
+            {
+                membership.Role = "Accepted";
+                context.SaveChanges();
+            }
             ManageRequests_ButtonClick(); //Because Now I want manage Requests button click functionality
         }
 
@@ -102,8 +106,11 @@ namespace SocietySync.Pages
         {
             var context = UserSession.Instance.GetSocietySyncContext();
             var membership = findMemeber(context);
-            context.SocietyMemberships.Remove(membership);
-            context.SaveChanges(); 
+            if (membership != null)
+            {
+                context.SocietyMemberships.Remove(membership);
+                context.SaveChanges();
+            }
             ManageRequests_ButtonClick();
         }
 
@@ -133,12 +140,14 @@ namespace SocietySync.Pages
             pending_Users = GetPendingUsers_ExsistingMembers();
 
             string Selected_Member_RollNum = Request.Form["MemberRollNumber"];
-            string new_role = Request.Form["memberStatus"];
-
-            var membership = context.SocietyMemberships.FirstOrDefault(sm => sm.Society_Name == My_SocietyName && sm.Member_RollNum == Selected_Member_RollNum && sm.Role != "New_Member");
-            membership.Role = new_role;
-            context.SaveChanges();
-            ViewMembers_ButtonClick(); //because i want functionality of this button here
+            if (!Selected_Member_RollNum.IsNullOrEmpty())
+            {
+                string new_role = Request.Form["memberStatus"];
+                var membership = context.SocietyMemberships.FirstOrDefault(sm => sm.Society_Name == My_SocietyName && sm.Member_RollNum == Selected_Member_RollNum && sm.Role != "New_Member");
+                membership.Role = new_role;
+                context.SaveChanges();
+                ViewMembers_ButtonClick(); //because i want functionality of this button here
+            }
             ViewData["ManageMembersPopup"] = true;
         }
 
@@ -149,12 +158,14 @@ namespace SocietySync.Pages
 
             pending_Users = GetPendingUsers_ExsistingMembers();
             string Selected_Member_RollNum = Request.Form["MemberRollNumber"];
-
-            var membership = context.SocietyMemberships.FirstOrDefault(sm => sm.Society_Name == My_SocietyName && sm.Member_RollNum == Selected_Member_RollNum && sm.Role != "New_Member");
-            context.SocietyMemberships.Remove(membership);
-            context.SaveChanges();
-            pending_Users = GetPendingUsers_ExsistingMembers();
-            ViewMembers_ButtonClick(); //because i want this functionality
+            if (!Selected_Member_RollNum.IsNullOrEmpty())
+            {
+                var membership = context.SocietyMemberships.FirstOrDefault(sm => sm.Society_Name == My_SocietyName && sm.Member_RollNum == Selected_Member_RollNum && sm.Role != "New_Member");
+                context.SocietyMemberships.Remove(membership);
+                context.SaveChanges();
+                pending_Users = GetPendingUsers_ExsistingMembers();
+                ViewMembers_ButtonClick(); //because i want this functionality
+            }
             ViewData["ManageMembersPopup"] = true;
         }
 
@@ -166,25 +177,17 @@ namespace SocietySync.Pages
         {
             string eventName = Request.Form["eventName"];
             string eventType = Request.Form["eventType"];
-            var eventDate = DateTime.Parse(Request.Form["eventDate"]);
+            var eventDateInput = Request.Form["eventDate"];
+            var eventDate = DateTime.TryParseExact(eventDateInput, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out var parsedDate) ? parsedDate : DateTime.MinValue;
             string eventDescription = Request.Form["eventDescription"];
 
             if (string.IsNullOrWhiteSpace(eventName) ||
                 string.IsNullOrWhiteSpace(eventType) ||
                 string.IsNullOrWhiteSpace(eventDescription) ||
-                eventDate == DateTime.MinValue)
+                string.IsNullOrWhiteSpace(eventDateInput))
             {
-                ModelState.AddModelError(nameof(SocietyProfileModel.EventDate), "Please Fill all the Fields");
                 ViewData["OrganizeEventPopup"] = true;
                 return;
-            }
-
-
-            if (eventDate < DateTime.Today)
-            {
-                ModelState.AddModelError(nameof(SocietyProfileModel.EventDate), "Date must be of today or after");
-                ViewData["OrganizeEventPopup"] = true;
-                return; 
             }
 
             var context = UserSession.Instance.GetSocietySyncContext();
@@ -217,7 +220,6 @@ namespace SocietySync.Pages
             }
 
             context.SaveChanges();
-            ModelState.AddModelError(nameof(SocietyProfileModel.EventDate), "");
             ViewData["OrganizeEventPopup"] = true;
         }
 

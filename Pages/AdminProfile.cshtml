@@ -36,8 +36,8 @@
 
     <div id="center">
         <div class="tabs_bar">
-            <button style="position:absolute;top:0px;left:5px;" class="btn" onclick="#"><span>Home</span></button>
-            <button style="position:absolute;top:0px;left:800px;" class="btn" onclick="#"><span>Log Out</span></button>
+            <button style="position:absolute;top:0px;left:5px;" class="btn" onclick="window.location.href = '/Index';"><span>Home</span></button>
+            <button style="position:absolute;top:0px;left:800px;" class="btn" onclick="window.location.href = '/Index';"><span>Log Out</span></button>
         </div>
         <div id="panel">
             <span class="user-count-label">Total User Count:</span>
@@ -169,10 +169,13 @@
             <div style="margin-top: 50px; padding: 20px;">
                 <label for="announcementText" style="font-weight: bold;">Announcement:</label><br>
                 <form method="post">
-                    <textarea id="announcementText" name="announcementText" style="width: calc(100% - 40px); height: 150px; margin-bottom: 10px; padding: 10px; border-radius: 5px; border: 1px solid #ccc;"></textarea>
+                    <textarea id="announcementText" name="announcementText"  style="width: calc(100% - 40px); height: 150px; margin-bottom: 10px; padding: 10px; border-radius: 5px; border: 1px solid #ccc;"></textarea>
                     <div style="text-align: center;">
                         <button id="submitAnnouncementBtn" name="submitAnnouncementBtn" value="submitAnnouncementBtn" style="background-color: #333333; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">Submit</button>
                     </div>
+                    <span id="announcementTextValidation" class="text-danger" style="color: red; font-weight: bold; display: none;">
+                        @Html.ValidationMessageFor(model => model.announcementText)
+                    </span>
                 </form>
             </div>
         </div>
@@ -226,23 +229,20 @@
         var makeAnnouncementPopup = document.getElementById("makeAnnouncementPopup");
         var closeMakeAnnouncementPopup = document.getElementById("closeMakeAnnouncementPopup");
 
-        makeAnnouncementBtn.onclick = function (event) {
-            event.stopPropagation();
-            makeAnnouncementPopup.style.display = "block";
-        }
-
         closeMakeAnnouncementPopup.onclick = function () {
             makeAnnouncementPopup.style.display = "none";
         }
 
-        // Event listener for submit button
-        //document.getElementById("submitAnnouncementBtn").addEventListener("click", function (event) {
-        //    event.preventDefault(); // Prevent default form submission
-        //    var announcementText = document.getElementById("announcementText").value;
-        //    var timestamp = getCurrentTimestamp();
-        //    var announcementWithTimestamp = announcementText + "\n\n" + "Timestamp: " + timestamp;
-        //    console.log(announcementWithTimestamp);
-        //});
+        document.getElementById("submitAnnouncementBtn").addEventListener("click", function (event) {
+            var announcementText = document.getElementById("announcementText").value.trim();
+            var announcementTextValidation = document.getElementById("announcementTextValidation");
+            if (announcementText === "") {
+                announcementTextValidation.style.display = "block";
+                event.preventDefault(); // Prevent form submission
+            } else {
+                announcementTextValidation.style.display = "none";
+            }
+        });
 
         function getCurrentTimestamp() {
             var now = new Date();
