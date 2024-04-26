@@ -53,33 +53,65 @@
     <div id="center">
         <div class="tabs_bar">   
 
-    <div style="background-color:darkgray;"id="center">
-        <div class="tabs_bar">
+    <div id="center">
+        <div class="tabs_bar" style="margin-top:-43px;margin-left:-300px;">
             <form method="post">
                 <button style="position:absolute;top:0px;left:5px;" class="btn" type="submit" name="page" value="Home"><span>Home</span></button>
                 <button style="position:absolute;top:0px;left:150px;" class="btn" type="submit" name="page" value="RegisterSociety"><span>Register a Society</span></button>
-                <button style="position:absolute;top:0px;left:370px;" class="btn" type="submit" name="page" value="ApplyMembership"><span>Apply Membership or Manage Societies</span></button>
-                <button style="position:absolute;top:0px;left:830px;" class="btn" type="submit" name="page" value="Logout"><span>Logout</span></button>
-                <div id="notifications">
-                    <!-- Dropdown notifications tab -->
-                    @* <select id="pendingRequests" name="pendingRequests" style="width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px;">
-                        @if (Model.notifications != null)
-                        {
-                            foreach (var notification in Model.notifications)
-                            {
-                                <option value="@($"{notification.Content} - {notification.UserType} - {notification.PostedBySocietyName}")">@($"{notification.Content} - {notification.UserType} - {notification.PostedBySocietyName}")</option>
-                            }
-                        }
-                        else
-                        {
-                            <option value="">No notifications</option>
-                        }
-                    </select> *@
-                </div>
+                <button style="position:absolute;top:0px;left:390px;text-size-adjust:auto" class="btn" type="submit" name="page" value="ApplyMembership"><span> Manage Societies & Membership</span></button>
+                <button style="position:absolute;top:0px;left:850px;" class="btn" type="submit" name="page" value="Logout"><span>Logout</span></button>
+                        <div id="notifications" class="custom-dropdown" style="margin-left:280px;margin-top:5px;background-color:white;width:150px;border-radius:5px;">
+                            <!-- Selected option -->
+                            <div id="selectedOption" class="selected-option" onclick="toggleDropdown()">Notifications</div>
+
+                            <!-- Dropdown options -->
+                            <div id="dropdownOptions" class="dropdown-options" style="width: 100%; display: none;">
+                                @if (Model.notifications != null && Model.notifications.Count > 0)
+                                {
+                                    foreach (var notification in Model.notifications)
+                                    {
+                                        <div class="dropdown-option" style="word-wrap: break-word; white-space: normal;" data-value="@($"{notification.Content} - {notification.UserType} - {notification.PostedBySocietyName}")">@($"{notification.Content} - {notification.UserType} - {notification.PostedBySocietyName}")</div>
+                                    }
+                                }
+                                else
+                                {
+                                    <div class="dropdown-option" style="word-wrap: break-word; white-space: normal;" data-value="">No notifications 123456722299999999999999999999999999999999999</div>
+                                    <div class="dropdown-option" style="word-wrap: break-word; white-space: normal;" data-value="">No notifications 1tycxvbxcvznx2299999999999999999999999999999999999</div>
+                                }
+                            </div>
+                        </div>
+
+
             </form>
         </div>
     </div>
 
 </body>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var selectedOption = document.getElementById('selectedOption');
+        var dropdownOptions = document.getElementById('dropdownOptions');
+
+        selectedOption.addEventListener('click', function () {
+            toggleDropdown();
+        });
+
+        dropdownOptions.addEventListener('click', function (e) {
+            var target = e.target;
+            if (target.classList.contains('dropdown-option')) {
+                selectedOption.textContent = target.textContent;
+                toggleDropdown(); // Hide dropdown after selection
+            }
+        });
+
+        function toggleDropdown() {
+            dropdownOptions.style.display = dropdownOptions.style.display === 'block' ? 'none' : 'block';
+        }
+    });
+</script>
+
+
+
+
 </html>
 
