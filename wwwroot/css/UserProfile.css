@@ -242,3 +242,40 @@ textarea {
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
+.custom-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.selected-option {
+    padding: 8px;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: darkgrey;
+    cursor: pointer;
+}
+
+.dropdown-options {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1;
+    display: none;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border: 1px solid black;
+    border-top: none;
+    border-radius: 0 0 5px 5px;
+    background-color: darkgrey;
+    width:150px;
+}
+
+.dropdown-option {
+    padding: 8px;
+    cursor: pointer;
+}
+
+    .dropdown-option:hover {
+        background-color: lightgrey;
+    }
