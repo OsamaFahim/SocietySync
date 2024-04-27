@@ -8,6 +8,7 @@ namespace SocietySync.Pages
     {
 
         public List<Society> societyList { get; set; }
+        public List<Announcement> notifications;
 
         public void populateData(string button_type)
         {
@@ -23,6 +24,24 @@ namespace SocietySync.Pages
                 societyList = context.Societies
                 .Where(s => s.Status == true && s.PresidentRollNum == UserSession.Instance.LoggedInRollNumber).ToList();
             }
+        }
+        public void populate_notifications()
+        {
+            var context = UserSession.Instance.GetSocietySyncContext();
+            List<string> user_societies = context.SocietyMemberships
+                                      .Where(sm => sm.Member_RollNum == UserSession.Instance.LoggedInRollNumber)
+                                      .Select(sm => sm.Society_Name)
+                                      .ToList();
+
+            notifications = context.Announcements
+                         .Where(a => a.UserType == "Admin" || user_societies.Contains(a.PostedBySocietyName))
+                         .ToList();
+        }
+        public void OnGet()
+        {
+            
+            populate_notifications();
+
         }
 
 

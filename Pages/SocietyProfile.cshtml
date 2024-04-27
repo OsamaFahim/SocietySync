@@ -40,15 +40,24 @@
         <div class="tabs_bar">
             <button style="position:absolute;top:0px;left:5px;" class="btn" onclick="window.location.href = '/UserProfile';"><span>Home</span></button>
             <button style="position:absolute;top:0px;left:5px;" class="btn" onclick="window.location.href = '/Home';"><span>Events</span></button>
-            <div id="notifications">
+            <input type="hidden" name="notifications" value="notifications" />
+            <div id="notifications" class="custom-dropdown" name="notifications" style="margin-left:700px;margin-top:5px;background-color:white;width:150px;border-radius:5px;">
+                <!-- Selected option -->
+                <div id="selectedOption" class="selected-option" onclick="toggleDropdown()">Notifications</div>
 
-                <div style="position:absolute;top:4px;left:660px;" class="dropdown">
-                    <button class="dropbtn">Notifications</button>
-                    <div style="background-color:gray;border-radius:5px;margin-left:5px;" class="dropdown-content">
-                        <a id="notification_data" href="#">Notification 1</a>
-                        <a href="#">Notification 2</a>
-                        <a href="#">Notification 3</a>
-                    </div>
+                <!-- Dropdown options -->
+                <div id="dropdownOptions" class="dropdown-options" style="width: 100%; display: none;">
+                    @if (Model.notifications != null)
+                    {
+                        foreach (var notification in Model.notifications)
+                        {
+                            <div class="dropdown-option" style="word-wrap: break-word; white-space: normal;" data-value="@($"{notification.Content} - {notification.UserType} - {notification.PostedBySocietyName}")">@($"{notification.Content} - {notification.UserType} - {notification.PostedBySocietyName}")</div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="dropdown-option" style="word-wrap: break-word; white-space: normal;" data-value="">No notifications</div>
+                    }
                 </div>
             </div>
             <button style="position:absolute;top:0px;left:5px;" class="btn" onclick="window.location.href = '/Index';"><span>Log out</span></button>
@@ -243,6 +252,27 @@
                 event.preventDefault(); // Prevent form submission
             } else {
                 announcementTextValidation.style.display = "none";
+            }
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            var selectedOption = document.getElementById('selectedOption');
+            var dropdownOptions = document.getElementById('dropdownOptions');
+
+            selectedOption.addEventListener('click', function () {
+                toggleDropdown();
+            });
+
+            dropdownOptions.addEventListener('click', function (e) {
+                var target = e.target;
+                if (target.classList.contains('dropdown-option')) {
+                    selectedOption.textContent = target.textContent;
+                    toggleDropdown(); // Hide dropdown after selection
+                }
+            });
+
+            function toggleDropdown() {
+                dropdownOptions.style.display = dropdownOptions.style.display === 'block' ? 'none' : 'block';
             }
         });
      

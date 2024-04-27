@@ -55,7 +55,7 @@ namespace SocietySync.Pages
                     int currentYear = DateTime.Now.Year % 100; // For the year 2024
 
                     // Check if the extracted year is less than or equal to the current year
-                    if (year <= currentYear)
+                    if (year <= currentYear && (currentYear-year)<=7)
                     {
                         return true; // Roll number is valid
                     }

@@ -7,14 +7,31 @@ using System.Globalization;
 
 namespace SocietySync.Pages
 {
+    
     public class SocietyProfileModel : PageModel
     {
+        public List<Announcement> notifications;
         [BindProperty]
         public string announcementText { get; set; }
 
         public List<User> pending_Users; 
+ 
+        public void populate_notifications()
+        {
+            var context = UserSession.Instance.GetSocietySyncContext();
+            List<string> user_societies = context.SocietyMemberships
+                                      .Where(sm => sm.Member_RollNum == UserSession.Instance.LoggedInRollNumber)
+                                      .Select(sm => sm.Society_Name)
+                                      .ToList();
+
+            notifications = context.Announcements
+                         .Where(a => a.UserType == "Admin" || user_societies.Contains(a.PostedBySocietyName))
+                         .ToList();
+        }
         public void OnGet()
         {
+
+            populate_notifications();
 
         }
 
