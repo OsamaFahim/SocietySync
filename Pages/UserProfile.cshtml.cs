@@ -9,9 +9,10 @@ namespace SocietySync.Pages
 {
     public class UserProfileModel : PageModel
     {
+
         public List<Announcement> notifications;
 
-        void populateData()
+        void populate_UserData()
         {
             var context = UserSession.Instance.GetSocietySyncContext();
 
@@ -22,9 +23,23 @@ namespace SocietySync.Pages
             ViewData["Name"] = User?.Name;
         }
 
+        public void populate_notifications()
+        {
+            var context = UserSession.Instance.GetSocietySyncContext();
+            List<string> user_societies = context.SocietyMemberships
+                                      .Where(sm => sm.Member_RollNum == UserSession.Instance.LoggedInRollNumber)
+                                      .Select(sm => sm.Society_Name)
+                                      .ToList();
+
+            notifications = context.Announcements
+                         .Where(a => a.UserType == "Admin" || user_societies.Contains(a.PostedBySocietyName))
+                         .ToList();
+        }
+
         public void OnGet()
         {
-            populateData();
+            populate_UserData();
+            populate_notifications();
 
         }
 
@@ -37,9 +52,16 @@ namespace SocietySync.Pages
                 string editedName = Request.Form["Name"];
                 user.Name = editedName;
                 context.SaveChanges();
-                populateData();
+                populate_UserData();
+                populate_notifications(); 
                 return Page();
             }
+
+            if (Request.Form.TryGetValue("notifications", out var notifications))
+            {
+                
+            }
+
 
             //Navigate According to what has been clicked by the user
             return page switch

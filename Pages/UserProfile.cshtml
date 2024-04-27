@@ -60,13 +60,14 @@
                 <button style="position:absolute;top:0px;left:150px;" class="btn" type="submit" name="page" value="RegisterSociety"><span>Register a Society</span></button>
                 <button style="position:absolute;top:0px;left:390px;text-size-adjust:auto" class="btn" type="submit" name="page" value="ApplyMembership"><span> Manage Societies & Membership</span></button>
                 <button style="position:absolute;top:0px;left:850px;" class="btn" type="submit" name="page" value="Logout"><span>Logout</span></button>
-                        <div id="notifications" class="custom-dropdown" style="margin-left:280px;margin-top:5px;background-color:white;width:150px;border-radius:5px;">
+                <input type="hidden" name="notifications" value="notifications" />
+                        <div id="notifications" class="custom-dropdown" name = "notifications" style="margin-left:800px;margin-top:5px;background-color:white;width:150px;border-radius:5px;">
                             <!-- Selected option -->
                             <div id="selectedOption" class="selected-option" onclick="toggleDropdown()">Notifications</div>
 
                             <!-- Dropdown options -->
                             <div id="dropdownOptions" class="dropdown-options" style="width: 100%; display: none;">
-                                @if (Model.notifications != null && Model.notifications.Count > 0)
+                                @if (Model.notifications != null)
                                 {
                                     foreach (var notification in Model.notifications)
                                     {
@@ -75,13 +76,10 @@
                                 }
                                 else
                                 {
-                                    <div class="dropdown-option" style="word-wrap: break-word; white-space: normal;" data-value="">No notifications 123456722299999999999999999999999999999999999</div>
-                                    <div class="dropdown-option" style="word-wrap: break-word; white-space: normal;" data-value="">No notifications 1tycxvbxcvznx2299999999999999999999999999999999999</div>
+                                    <div class="dropdown-option" style="word-wrap: break-word; white-space: normal;" data-value="">No notifications</div>
                                 }
                             </div>
                         </div>
-
-
             </form>
         </div>
     </div>
