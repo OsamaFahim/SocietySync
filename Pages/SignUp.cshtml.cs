@@ -36,7 +36,7 @@ namespace SocietySync.Pages
             rollNumber = rollNumber.Trim();
 
             // Define the regular expression pattern for roll number validation
-            string pattern = @"^[LKPFIT](1[1-9]|2[0-4])(-)(\d+)$";
+            string pattern = @"^[LKPFI](1[1-9]|2[0-4])(-)(\d+)$";
 
             // Create a Regex object with the pattern
             Regex regex = new Regex(pattern, RegexOptions.IgnoreCase);
